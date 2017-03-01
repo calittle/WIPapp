@@ -1,23 +1,40 @@
+var log = [];
+var logi = 0;
+function logit(s){
+  log[logi] = s;
+  logi++;
+}
+function showlog(){
+  var s = '';
+  for (i=0;i<logi;i++){
+	  s = s + log[i] + '<br/>';
+  }
+  window.open().document.write(s);
+}
+function updateBar(s){
+  var today = new Date();
+  $("#statusbar").text(today + " - " + s);
+  logit(today + " - " + s);
+  //window.setTimeout(function () {$("#statusbar").text('Copyright (C) 2016-2017 Oracle Corporation.');}, 1000);
+}
 function checkRequired(){
-  $("#statusbar").text('Checking required fields...');                      
+  updateBar('Checking required fields...');                      
   var plugin = document.getElementById('plugin');
   var rs = false;
   if(plugin!=null){
       rs = plugin.checkRequiredField();
   }
-  window.setTimeout(function () {$("#statusbar").text('Copyright (C) 2016-2017 Oracle Corporation.');}, 1000);
+  updateBar('Required field check done ('+rs+')');
   return rs;
 }
 function saveDocument(){
-  $("#statusbar").text('Saving...');                      
+  updateBar('Saving...');
   var rs='not saved';
   var plugin = document.getElementById('plugin');  
   if(plugin!=null){
     rs = plugin.cmdGetResponse(260);
   }
-  $("#statusbar").text('Document save result:'+rs);                      
-  window.setTimeout(function () {$("#statusbar").text('Copyright (C) 2016-2017 Oracle Corporation.');}, 5000);
-  
+  updateBar('Document save result:'+rs);                      
   if (rs=='success')
     return true;
   else
@@ -84,9 +101,11 @@ function positionContainer(){
 }
 $(window).resize(positionContainer());    
 $(document).ready(function () {              
+    logit(new Date() + ' - WIPapp loaded; plugin may still be loading.');
     positionContainer();             
     if (isUserDocPrep) { 
       $("#saveButton").prop('disabled',false);
+      logit(new Date() + ' - save button enabled (user is DocPrep)');
     }                        
       $("#saveButton").click(function () {                
             $("#saveButton").prop('disabled',true);
@@ -129,22 +148,22 @@ $(document).ready(function () {
         navBar(0);
       });
       $("#proof").click(function (){                            
-          $("#statusbar").text('Saving...');
+          updateBar('Saving...');
           if (saveDocument()){          
-            $("#statusbar").text('Generating PDF...');
+            updateBar('Generating PDF...');
             window.open('printwip?uniqueid='+uniqueid);
-          }window.setTimeout(function () {$("#statusbar").text('Copyright (C) 2016-2017 Oracle Corporation.');}, 5000);
+          }
       });       
       $("#checkRequired").click(function (){
-          if(checkRequired()=='true')
+          if(checkRequired()=='true'){            
             alert('All required fields are completed. Nice job!');
+          }
       }); 
       $("#submitButton").click(function (){
             if(checkRequired()=='true'){
-              $("#statusbar").text('Saving...');                      
+              updateBar('Saving...');                      
               if (saveDocument()){
-                $("#statusbar").text('Submitting...');                      
-                window.setTimeout(function () {$("#statusbar").text('Copyright (C) 2016-2017 Oracle Corporation.');}, 5000);
+                updateBar('Submitting...');                                      
                 window.location.replace('submitwip?uniqueid='+uniqueid+'&taskid=' + taskid);
               }
             }  
@@ -160,7 +179,6 @@ $(document).ready(function () {
           }
           if (/^1$/.test(dirty)){
             if(confirm('You may have unsaved data. Do you wish to close?')){
-              //open(location,'_self').close();
               window.close();
             }
           }
@@ -172,4 +190,4 @@ $(document).ready(function () {
       }
   });
 function browserDetect(){return(navigator.userAgent.indexOf("Opera")||navigator.userAgent.indexOf("OPR"))!=-1?"Opera":navigator.userAgent.indexOf("Chrome")!=-1?"Chrome":navigator.userAgent.indexOf("Safari")!=-1?"Safari":navigator.userAgent.indexOf("Firefox")!=-1?"Firefox":navigator.userAgent.indexOf("MSIE")!=-1||1==!!document.documentMode?"IE":"unknown"}function pluginDetect(){var a=browserDetect(),b=false;if("Firefox"==a)for(var c=0;navigator.plugins[c];++c)"DocuMaker plugin"==navigator.plugins[c].name&&(b=true);else if("IE"==a)try{new ActiveXObject("WIPED01.WipEd01Ctrl.1"),b=true}catch(a){b=false;}return(b);}
-if(pluginDetect()==false){$("#statusbar").text('No plugin installed! - Copyright (C) 2016-2017 Oracle Corporation.');alert("The Documaker plugin does not appear to be installed!");}
+if(pluginDetect()==false){updateBar('No plugin installed! - Copyright (C) 2016-2017 Oracle Corporation.');alert("The Documaker plugin does not appear to be installed!");}

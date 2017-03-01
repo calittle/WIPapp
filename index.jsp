@@ -137,7 +137,7 @@
              class='navbar navbar-default navbar-fixed-bottom navbar-inverse'>
             <div class='container'>
                 <div class='col-xs-12 text-center navbar-text'>
-                    <p id="statusbar" class='text'>Copyright &copy; 2016-2017 Oracle Corporation.</p>
+                    <p id="statusbar" class='text' onclick="showlog();">Copyright &copy; 2016-2017 Oracle Corporation.</p>
                 </div>
             </div>
         </nav>
@@ -146,7 +146,7 @@
     var uniqueid = '<%=uniqueId%>';
     var taskid = '<%=taskId%>';
     </script>
-    <script src='js/wipedit-0.6.js'></script>
+    <script src='js/wipedit-0.8.js'></script>
     </body>
 </html>
 
