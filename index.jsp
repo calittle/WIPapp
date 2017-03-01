@@ -3,8 +3,9 @@
 <%@ page contentType="text/html;charset=ISO-8859-1" import="wipedit.Controller, javax.security.auth.*,weblogic.security.Security"
 %>
 <%
-  Boolean haveUID = false;
-  Boolean haveTID = false;
+  
+  Boolean haveUID = true;
+  Boolean haveTID = true;
   Boolean isUserDocPrep = false;
   Boolean isUserDocVet = false;
   wipedit.Controller ws = new wipedit.Controller(config);  
@@ -12,13 +13,16 @@
    
   String uniqueId = "";
   String taskId = "";
-  uniqueId = request.getParameter("uniqueid");
-  taskId = request.getParameter("docId");
   
-  if (uniqueId != null & uniqueId.length() > 0)
-    haveUID = true;
-  if (taskId !=null & taskId.length() > 0)
-    haveTID = true;
+  if (request.getParameter("uniqueid") == null || request.getParameter("uniqueid").trim().length() == 0)
+    haveUID = false;
+  if (request.getParameter("docId") == null || request.getParameter("docId").trim().length() == 0)
+    haveTID = false;
+  
+  if (haveUID)
+    uniqueId = request.getParameter("uniqueid");
+  if (haveTID)
+    taskId = request.getParameter("docId");
     
     Subject subject = Security.getCurrentSubject();
     if (ws.isUserDocPrep(subject))
@@ -81,7 +85,7 @@
         </header>
         <div class='container-fluid'>
             <%
-        if (!haveUID | !haveTID){        
+        if (!(haveUID && haveTID)){        
         %>
             <div class='jumbotron'>
             <% if (!haveUID) { %>
