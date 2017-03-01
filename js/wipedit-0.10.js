@@ -32,7 +32,13 @@ function saveDocument(){
   var rs='not saved';
   var plugin = document.getElementById('plugin');  
   if(plugin!=null){
-    rs = plugin.cmdGetResponse(260);
+    var tries = 1;
+    do {
+      logit(new Date + ' - trying plugin.cmdGetResponse(260) - ' + tries);
+      rs = plugin.cmdGetResponse(260);
+      logit(new Date + ' - returned (' + rs + ')');
+      tries++;
+    }while (rs != 'success' && tries < 10)
   }
   updateBar('Document save result:'+rs);                      
   if (rs=='success')
