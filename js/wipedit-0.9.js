@@ -148,10 +148,10 @@ $(document).ready(function () {
         navBar(0);
       });
       $("#proof").click(function (){                            
-          updateBar('Saving...');
           if (saveDocument()){          
             updateBar('Generating PDF...');
             window.open('printwip?uniqueid='+uniqueid);
+            updateBar('PDF generated and opened.');
           }
       });       
       $("#checkRequired").click(function (){
@@ -160,8 +160,7 @@ $(document).ready(function () {
           }
       }); 
       $("#submitButton").click(function (){
-            if(checkRequired()=='true'){
-              updateBar('Saving...');                      
+            if(checkRequired()=='true'){            
               if (saveDocument()){
                 updateBar('Submitting...');                                      
                 window.location.replace('submitwip?uniqueid='+uniqueid+'&taskid=' + taskid);
