@@ -1,0 +1,105 @@
+<project name="WIPapp" default="dist" basedir=".">
+    <description>
+        WIPapp: Application Wrapper for WIP Edit Plugin
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="dist"  location="dist"/>
+  <property name="jspjar" location="/Volumes/Data/Users/calittle/Oracle11g/Middleware/modules" />
+  <property name="wls" location="/Volumes/Data/Users/calittle/Oracle11g/Middleware/wlserver_10.3/server/lib" />
+  <property name="third" location="thirdparty"/>
+  <property name="web" location="webapp"/>
+  <property name="deploy" location="deploy"/>
+  <!--taskdef name="wldeploy" classname="weblogic.ant.taskdefs.management.WLDeploy"/-->
+  
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="compile" depends="init"
+        description="compile the source " >
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac target="1.6" source="1.6" srcdir="${src}" destdir="${build}">
+    <classpath>
+      <pathelement path="${classpath}"/>
+      <fileset dir="${third}">
+        <include name="**/*.jar"/>
+      </fileset>
+      <pathelement location="classes"/>
+      <dirset dir="${build}">
+        <include name="*/**"/>
+      </dirset>
+      <filelist
+	id="JSPRuntime"
+	dir="${jspjar}"
+	files="javax.servlet_1.0.0.0_2-5.jar,javax.jsp_1.1.0.0_2-1.jar,glassfish.el_2.2.0.jar,javax.servlet_1.0.0.0_2-5.jar,javax.jsp_1.1.0.0_2-1.jar"
+	/>
+	<filelist id="WS" dir="${wls}" files="weblogic.jar,oracle.jrf_11.1.1/jrf.jar"/>
+    </classpath>
+    </javac>
+    
+    <echo>Copying additional files</echo>
+    <copy todir="${build}/oracle/dws">
+    	<filelist 
+    		id="webservicestuff" 
+    		dir="${src}/oracle/dws"
+    		files="CompositionService_xsd_1.xsd,CompositionService_xsd_2.xsd,CompositionService.wsdl,CompositionService.xml,CompositionServiceProxy.proxy"/>   	
+    		</copy>
+  </target>
+
+  <target name="deploywls" depends="dist" description="deploy to WebLogic">
+  <echo>TBD</echo>
+    <!--wldeploy
+      action="deploy" verbose="true" debug="true"
+      name="WIPapp Deployment" source="${deploy}/wipapp-${DSTAMP}.war"
+      user="weblogic" password="Oracle12"
+      adminurl="t3://192.168.1.72:7001" targets="AdminServer" /-->
+  </target>
+
+  <target name="dist" depends="build" description="build WAR file for remote load">
+  <jar jarfile="${deploy}/wipapp-${DSTAMP}.war" basedir="${dist}"/>
+  </target>
+
+  <target name="build" depends="compile"
+        description="generate the distribution" >
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist}/WEB-INF/lib"/>
+
+	<echo>Copying WEB files </echo>
+	<copy todir="${dist}">
+		<fileset dir="${web}">
+		</fileset>
+	</copy>
+
+    <!--jar jarfile="${dist}/WEB-INF/lib/wipapp-servlet-${DSTAMP}.jar" basedir="${build}"/-->
+    
+    <echo>Copying SOURCE files</echo>
+    <mkdir dir="${dist}/source"/>
+    <jar jarfile="${dist}/source/wipapp-sources-${DSTAMP}.jar" basedir="${src}"/>
+    
+    <echo>Copying CLASS files</echo>
+    <copy todir="${dist}/WEB-INF/classes">
+	    <fileset dir="${build}">
+		    <include name="*/**"/>
+	  </fileset>
+	  </copy>
+
+
+    <echo>Copying third-party JAR files</echo>
+	<copy todir="${dist}/WEB-INF/lib">
+        <fileset dir="${third}"></fileset>
+    </copy>
+
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+</project>

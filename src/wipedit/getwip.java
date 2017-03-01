@@ -43,6 +43,11 @@ public class getwip extends HttpServlet {
         String entityId = ws.getDocPrepGroupId();        
         Subject s = Subject.getSubject(AccessController.getContext());
         
+        response.setHeader("Cache-Control","no-cache"); //HTTP 1.1
+		response.setHeader("Pragma","no-cache");        //HTTP 1.0
+		response.setDateHeader ("Expires", 0);                 //prevents caching at the proxy server
+		response.setHeader("Cache-Control","no-store"); //HTTP 1.1
+        
         ws.logMessage("DEBUG",className,String.format("User <%s> DOC_PREP <%s>, DOC_VET <%s>, Groups <%s>.",ws.userName(s),ws.isUserDocPrep(s),ws.isUserDocVet(s),ws.userGroups(s)));
       
         // log some other stuff.
