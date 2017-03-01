@@ -15,12 +15,12 @@
   
   if (request.getParameter("uniqueid") == null || request.getParameter("uniqueid").trim().length() == 0)
     haveUID = false;
+  else
+    uniqueId = request.getParameter("uniqueid");
+    
   if (request.getParameter("docId") == null || request.getParameter("docId").trim().length() == 0)
     haveTID = false;
-  
-  if (haveUID)
-    uniqueId = request.getParameter("uniqueid");
-  if (haveTID)
+  else
     taskId = request.getParameter("docId");
     
     Subject subject = Security.getCurrentSubject();
@@ -47,8 +47,9 @@
     </head>
     <body>
         <header>
-            <nav class='navbar navbar-default'>
-                <div class='navbar-header'>
+            <nav class="navbar navbar-default">
+              <div class="container-fluid">
+                  <div class="navbar-header">
                     <button type='button' class='navbar-toggle'
                             data-toggle='collapse'
                             data-target='#navbarCollapse'>
@@ -56,9 +57,13 @@
                         <span class='icon-bar'></span>
                         <span class='icon-bar'></span>
                         <span class='icon-bar'></span>
-                    </button>
+                    </button>                    
+                    </div>
                     <div class='collapse navbar-collapse' id='navbarCollapse'>
                         <ul class='nav navbar-nav'>
+                            <li>
+                            <a href="#" onclick="alert('Task ID: <%=taskId%>');"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Task <%=taskId%></a>
+                            </li>
                             <li>
                                 <a id="saveButton" disabled="true" href="#">
                                     <i class='fa fa-floppy-o'
@@ -76,7 +81,7 @@
                                     <i class='fa fa-times'
                                        aria-hidden='true'></i> Close</a>
                             </li>
-                        </ul>
+                        </ul>                        
                     </div>
                 </div>
             </nav>
@@ -104,8 +109,8 @@
                         src="wipedit?uniqueid=<%=request.getParameter("uniqueid")%>"
                         frameborder="0" style="overflow: hidden; height: 100%; width: 100%; position: absolute;z-index:-1;" height="100%" width="100%"></iframe>
                         -->
-                <object type="application/x-dpwfile" width="100%" height="100%" id="plugin" name="plugin" classid="clsid:F894A210-B1E8-44D2-A3DB-5C2E86C7408D" src="wipedit?uniqueid=<%=request.getParameter("uniqueid")%>">
-                  <param name="src" value="<%=request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/wipedit/wipedit?uniqueid=" + request.getParameter("uniqueid")%>">
+                <object type="application/x-dpwfile" width="100%" height="100%" id="plugin" name="plugin" classid="clsid:F894A210-B1E8-44D2-A3DB-5C2E86C7408D" src="wipedit?uniqueid=<%=uniqueId%>">
+                  <param name="src" value="<%=request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/wipedit/wipedit?uniqueid=" + uniqueId %>">
                   <param name="classid" value="clsid:F894A210-B1E8-44D2-A3DB-5C2E86C7408D">
                   <param name="dpr_wip_mode" value="ENTRY">
                   <param name="url" value="<%=request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()%>">
@@ -148,7 +153,7 @@
         });
     
        $(document).ready(function () {              
-            positionContainer();                      
+            positionContainer();             
           <%
             if (isUserDocPrep) { 
           %>
@@ -203,9 +208,16 @@
                   }
                 }
               });
+          if (pluginDetect()==!1)
+            {
+            $("#saveButton").prop('disabled',true);
+            $("#submitButton").prop('disabled', true)
+            }
           });
 </script>
-<script>function browserDetect(){return(navigator.userAgent.indexOf("Opera")||navigator.userAgent.indexOf("OPR"))!=-1?"Opera":navigator.userAgent.indexOf("Chrome")!=-1?"Chrome":navigator.userAgent.indexOf("Safari")!=-1?"Safari":navigator.userAgent.indexOf("Firefox")!=-1?"Firefox":navigator.userAgent.indexOf("MSIE")!=-1||1==!!document.documentMode?"IE":"unknown"}function pluginDetect(){var a=browserDetect(),b=!1;if("Firefox"==a)for(var c=0;navigator.plugins[c];++c)"DocuMaker plugin"==navigator.plugins[c].name&&(b=!0);else if("IE"==a)try{new ActiveXObject("WIPED01.WipEd01Ctrl.1"),b=!0}catch(a){b=!1}b||alert("The Documaker plugin does not appear to be installed!")}</script>
+<script>
+pluginDetect();
+function browserDetect(){return(navigator.userAgent.indexOf("Opera")||navigator.userAgent.indexOf("OPR"))!=-1?"Opera":navigator.userAgent.indexOf("Chrome")!=-1?"Chrome":navigator.userAgent.indexOf("Safari")!=-1?"Safari":navigator.userAgent.indexOf("Firefox")!=-1?"Firefox":navigator.userAgent.indexOf("MSIE")!=-1||1==!!document.documentMode?"IE":"unknown"}function pluginDetect(){var a=browserDetect(),b=!1;if("Firefox"==a)for(var c=0;navigator.plugins[c];++c)"DocuMaker plugin"==navigator.plugins[c].name&&(b=!0);else if("IE"==a)try{new ActiveXObject("WIPED01.WipEd01Ctrl.1"),b=!0}catch(a){b=!1}b||alert("The Documaker plugin does not appear to be installed!")}</script>
     </body>
 </html>
 
