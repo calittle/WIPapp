@@ -102,6 +102,10 @@
         %>
             <div class='row'>
               <div class="col-lg-12" id="wipedit">
+              <!-- <iframe class="col-lg-12" id="wipedit"
+                        src="wipedit?uniqueid=<%=request.getParameter("uniqueid")%>"
+                        frameborder="0" style="overflow: hidden; height: 100%; width: 100%; position: absolute;z-index:-1;" height="100%" width="100%"></iframe>
+                        -->
                 <object type="application/x-dpwfile" width="100%" height="100%" id="plugin" name="plugin" classid="clsid:F894A210-B1E8-44D2-A3DB-5C2E86C7408D" src="wipedit?uniqueid=<%=request.getParameter("uniqueid")%>">
                   <param name="src" value="<%=request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/wipedit/wipedit?uniqueid=" + request.getParameter("uniqueid")%>">
                   <param name="classid" value="clsid:F894A210-B1E8-44D2-A3DB-5C2E86C7408D">

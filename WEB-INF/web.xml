@@ -27,8 +27,8 @@
   </context-param>
   <context-param>
     <param-name>hostUrlPrefix</param-name>
-    <param-value>http://192.168.1.72</param-value>
-    <!--param-value>http://192.168.1.72:7001</param-value-->
+    <!--<param-value>http://192.168.1.72</param-value>-->
+    <param-value>http://192.168.1.72:7001</param-value>
   </context-param>
   <context-param>
     <param-name>idsRequestSave</param-name>
@@ -138,7 +138,7 @@
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>Secured Content</web-resource-name>
-      <url-pattern>/wipedit/*</url-pattern>
+      <url-pattern>*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>authenticated-users</role-name>
