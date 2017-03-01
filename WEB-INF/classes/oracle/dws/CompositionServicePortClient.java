@@ -325,10 +325,43 @@
 /* 325 */     response = compositionServicePortType.doCallIDS(dwsRequest);
 /* 326 */     return response;
 /*     */   }
+/*     */   
+/*     */   public DoCallIDSResponse printWIPEntry(String config, String uniqueId, String idsUser, String idsPass, String idsPrintType, String idsRequestProof) throws CompositionFault {
+/* 330 */     compositionService = new CompositionService();
+/* 331 */     CompositionServicePortType compositionServicePortType = compositionService.getCompositionServicePort();
+/*     */     
+/*     */ 
+/* 334 */     DoCallIDSRequest dwsRequest = new DoCallIDSRequest();
+/* 335 */     dwsRequest.setSchemaVersion("1.0");
+/*     */     
+/* 337 */     DSIMSG dsimsg = new DSIMSG();
+/* 338 */     dwsRequest.setDSIMSG(dsimsg);
+/* 339 */     MSGVARS msgvars = new MSGVARS();
+/* 340 */     dsimsg.setMSGVARS(msgvars);
+/*     */     
+/* 342 */     List<ROWSET> rsList = msgvars.getROWSET();
+/* 343 */     ROWSET rowset = null;
+/* 344 */     ROW row = null;
+/* 345 */     List<ROW> rowList = null;
+/* 346 */     List<VAR> varList = null;
+/* 347 */     String value = null;
+/* 348 */     varList = msgvars.getVAR();
+/* 349 */     varList.add(bvar("USERID", idsUser));
+/* 350 */     varList.add(bvar("PASSWORD", idsPass));
+/* 351 */     varList.add(bvar("PRTTYPE", idsPrintType));
+/* 352 */     varList.add(bvar("REQTYPE", idsRequestProof));
+/* 353 */     varList.add(bvar("CONFIG", config));
+/* 354 */     varList.add(bvar("UNIQUE_ID", uniqueId));
+/*     */     
+/* 356 */     DoCallIDSResponse response = null;
+/*     */     
+/* 358 */     response = compositionServicePortType.doCallIDS(dwsRequest);
+/* 359 */     return response;
+/*     */   }
 /*     */ }
 
 
-/* Location:              /Volumes/Data/Users/calittle/Downloads/wipapp/wipapp_2017-2-13-1/WEB-INF/classes/!/oracle/dws/CompositionServicePortClient.class
+/* Location:              /Volumes/Data/Users/calittle/Downloads/wipapp/wipapp_2017-2-23-1/WEB-INF/classes/!/oracle/dws/CompositionServicePortClient.class
  * Java compiler version: 6 (50.0)
  * JD-Core Version:       0.7.1
  */

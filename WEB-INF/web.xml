@@ -22,6 +22,10 @@
     <param-value>CORRESPONDENCE</param-value>
   </context-param>
   <context-param>
+    <param-name>idsProofPrintType</param-name>
+    <param-value>PDF</param-value>
+  </context-param>
+  <context-param>
     <param-name>idsgetWipPrintType</param-name>
     <param-value>DPW</param-value>
   </context-param>
@@ -29,6 +33,10 @@
     <param-name>hostUrlPrefix</param-name>
     <!--<param-value>http://192.168.1.72</param-value>-->
     <param-value>http://192.168.1.72:7001</param-value>
+  </context-param>
+  <context-param>
+    <param-name>idsRequestProof</param-name>
+    <param-value>iDM_PrintWIPFormset</param-value>
   </context-param>
   <context-param>
     <param-name>idsRequestSave</param-name>
@@ -97,6 +105,10 @@
     <servlet-class>wipedit.getresource</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>printwip</servlet-name>
+    <servlet-class>wipedit.printwip</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>getwip</servlet-name>
     <servlet-class>wipedit.getwip</servlet-class>
   </servlet>
@@ -123,6 +135,10 @@
   <servlet-mapping>
     <servlet-name>savewip</servlet-name>
     <url-pattern>/savewip</url-pattern>
+  </servlet-mapping>
+<servlet-mapping>
+    <servlet-name>printwip</servlet-name>
+    <url-pattern>/printwip</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>unlockwip</servlet-name>

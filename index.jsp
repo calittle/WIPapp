@@ -40,12 +40,12 @@
         <meta name='description' content='copyright 2016,2017 Oracle Corporation'>
         <meta name='keywords' content='ODEE,Documaker,WIPedit,WIPapp'>
         <meta name='author' content='Andy Little andy.little@oracle.com'>
-        <link href='bootstrap-3.3.7-dist/css/bootstrap.min.css' rel='stylesheet'>
-        <link rel='stylesheet' href='font-awesome-4.7.0/css/font-awesome.min.css'>  
+        <link href='bootstrap-3.3.7-dist/css/bootstrap.min.css' rel='stylesheet'>        
+        <link href='css/wipedit.css' rel='stylesheet'>
         <script src='js/jquery-3.1.1.js'></script>        
         <script src='bootstrap-3.3.7-dist/js/bootstrap.min.js'></script>
     </head>
-    <body>
+    <body background="loader1.gif">
         <header>
             <nav class="navbar navbar-default">
               <div class="container-fluid">
@@ -60,28 +60,20 @@
                     </button>                    
                     </div>
                     <div class='collapse navbar-collapse' id='navbarCollapse'>
-                        <ul class='nav navbar-nav'>
+                        <ul class='nav navbar-nav navbar-left'>
                             <li>
-                            <a href="#" onclick="alert('Task ID: <%=taskId%>');"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Task <%=taskId%></a>
+                            <a href="#" onclick="alert('Task ID: <%=taskId%>');"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Task <%=taskId%></a>
                             </li>
-                            <li>
-                                <a id="saveButton" disabled="true" href="#">
-                                    <i class='fa fa-floppy-o'
-                                       aria-hidden='true'></i> Save</a>
-                            </li>
-                             
-                            <li>                                
-                                <a id="submitButton" href="#">
-                                  <i class='fa fa-share-square-o'
-                                     aria-hidden='true'></i> Submit</a>
-                            </li>
-                             
-                            <li>
-                                <a id="closeButton" href="#">
-                                    <i class='fa fa-times'
-                                       aria-hidden='true'></i> Close</a>
-                            </li>
-                        </ul>                        
+                            <li><a id="zoomIn" href="#"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> Zoom In</a></li>
+                            <li><a id="zoomNormal" href="#"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Zoom Normal</a></li>
+                            <li><a id="zoomOut" href="#"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span> Zoom Out</a></li>
+                            <li><a id="proof" href="#"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Proof</a></li>
+                            <li><a id="saveButton" disabled="true" href="#"><span class='glyphicon glyphicon-save-file' aria-hidden='true'></span> Save</a></li>
+                            <li><a id="submitButton" href="#"><span class='glyphicon glyphicon-check' aria-hidden='true'></span> Submit</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                          <li><a id="closeButton" href="#"><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> Close</a></li>
+                        </ul>
                     </div>
                 </div>
             </nav>
@@ -104,7 +96,7 @@
         } else {
         %>
             <div class='row'>
-              <div class="col-lg-12" id="wipedit">
+              <div class="col-lg-12 wipedit" id="wipedit">
               <!-- <iframe class="col-lg-12" id="wipedit"
                         src="wipedit?uniqueid=<%=request.getParameter("uniqueid")%>"
                         frameborder="0" style="overflow: hidden; height: 100%; width: 100%; position: absolute;z-index:-1;" height="100%" width="100%"></iframe>
@@ -161,9 +153,6 @@
               $("#saveButton").prop('disabled',false);
           <% } %>                       
               $("#saveButton").click(function () {                
-                      
-                      //alert('Document save clicked');
-                      
                       $("#saveButton").prop('disabled',true);
                       $("#submitButton").prop('disabled', true)                  
                       
@@ -185,11 +174,50 @@
                         $("#statusbar").text('Copyright (C) 2016-2017 Oracle Corporation.');
                       }, 5000);
               });
+              $("#zoomNormal").click(function (){
+                  var plugin = document.getElementById('plugin');
+                  plugin.zoomNormal();
+              }); 
+
+              $("#zoomOut").click(function (){
+                  var plugin = document.getElementById('plugin');
+                  plugin.zoomOut();
+              }); 
+
+              $("#zoomIn").click(function (){
+                  var plugin = document.getElementById('plugin');
+                  plugin.zoomIn();
+              }); 
+
+              $("#proof").click(function (){                  
+                  var plugin = document.getElementById('plugin');
+                      
+                      try{
+                        rs = plugin.cmdGetResponse(260);
+                      }catch (e){
+                        alert('Exception: ' + e.message);
+                      }
+                      
+                      $("#statusbar").text('Document save result:'+rs); 
+                      window.setTimeout(function () {
+                        $("#statusbar").text('Copyright (C) 2016-2017 Oracle Corporation.');
+                      }, 5000);
+                      
+                  window.open('printwip?uniqueid=<%=uniqueId%>');
+              }); 
+
               $("#submitButton").click(function (){
-                  //alert('submit button clicked\nAbout to submit.');
-                  $("#saveButton").prop('disabled',true);
-                  $("#submitButton").prop('disabled', true)
-                  window.location.replace('submitwip?uniqueid=<%=uniqueId%>&taskid=<%=taskId%>');
+                  var plugin = document.getElementById('plugin');
+                  var rs = false;
+                  try{
+                    do{
+                      rs = plugin.checkRequiredField();
+                    }while(rs=false);
+                    rs = plugin.cmdGetResponse(260);
+                    window.location.replace('submitwip?uniqueid=<%=uniqueId%>&taskid=<%=taskId%>');
+                  }catch (e){
+                    alert('Exception: ' + e.message);
+                  }                                        
               }); 
               
               $("#closeButton").click(function () { 
