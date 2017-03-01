@@ -7,7 +7,7 @@
   <distributable/>
   <context-param>
     <param-name>wipEditVersion</param-name>
-    <param-value>0.1</param-value>
+    <param-value>0.2</param-value>
   </context-param>
   <context-param>
     <param-name>saveServlet</param-name>

@@ -110,6 +110,7 @@
         </wsdl:operation>
     </wsdl:binding>
     <wsdl:service name="CompositionService">
+    <!-- MUST USE DWSV0! -->
         <wsdl:port name="CompositionServicePort" binding="tns:CompositionServiceBinding">
             <soap:address location="http://192.168.1.72:7001/DWSV0AL1/CompositionService"/>
         </wsdl:port>

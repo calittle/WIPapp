@@ -24,19 +24,23 @@
 /* 24 */     this.faultInfo = faultInfo;
 /*    */   }
 /*    */   
+/*    */ 
+/*    */   CompositionFault(String p0) {}
+/*    */   
+/*    */ 
 /*    */   public oracle.dws.types.CompositionFault getFaultInfo()
 /*    */   {
-/* 29 */     return this.faultInfo;
+/* 33 */     return this.faultInfo;
 /*    */   }
 /*    */   
 /*    */   public void setFaultInfo(oracle.dws.types.CompositionFault faultInfo)
 /*    */   {
-/* 34 */     this.faultInfo = faultInfo;
+/* 38 */     this.faultInfo = faultInfo;
 /*    */   }
 /*    */ }
 
 
-/* Location:              /Volumes/Data/Users/calittle/Downloads/wipapp/wipapp_2016-12-23-1/WEB-INF/classes/!/oracle/dws/CompositionFault.class
+/* Location:              /Volumes/Data/Users/calittle/Downloads/wipapp/wipapp_2017-2-13-1/WEB-INF/classes/!/oracle/dws/CompositionFault.class
  * Java compiler version: 6 (50.0)
  * JD-Core Version:       0.7.1
  */

@@ -91,11 +91,11 @@
             <% if (!haveUID) { %>
                 <p style='error'>Unique ID not specified in request as 'uniqueid'</p>
                 <% } 
-                if (!haveTID) { %>
+            if (!haveTID) { %>
                 <p style='error'>Task ID(docId) not specified in request as 'docId'</p>
                 <% } %>
                 <p>Example:</p>
-                <pre>http://servername:port/wipedit?uniqueid=[value]&taskid=[value]</pre>
+                <pre>http://servername:port/wipedit/?uniqueid=[value]&docId=[value]</pre>
             </div>
             <%
         } else {

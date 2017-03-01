@@ -404,7 +404,7 @@
                                     server/port values within the URL. You may
                                     need to change the web service application
                                     if you are integrating with a specific
-                                    assembly line or schema version. If you have
+                                    assembly line. <em>You must use V0</em>. If you have
                                     any doubts, you can refer to your WebLogic
                                     console for valid values.</li>
                                  
@@ -503,7 +503,7 @@
                         <p>To integrate this application with your existing
                            applications, you need only to utilize the following
                            URL when you want to invoke the application:</p>
-                        <pre>http(s)://<i>[ server:port ]</i>/wipedit?uniqueid=<i>[ uniqueId ]</i>&taskid=<i>[ taskId ]</i></pre>
+                        <pre>http(s)://<i>[ server:port ]</i>[ appName ]/?uniqueid=<i>[ uniqueId ]</i>&docId=<i>[ taskId ]</i></pre>
                         <p>Where:</p>
                         <ul>
                             <li>
@@ -514,6 +514,12 @@
                                 plugin, you can configure the plugin to forward
                                 requests as necessary. Such configuration is
                                 beyond the detail of this document.
+                            </li>
+                        
+                            <li>
+                                <i>[ appName ]</i>
+                                is the context root of the web application. Check your
+                                deployment in WebLogic console. By default this is <em>wipedit</em>
                             </li>
                              
                             <li>

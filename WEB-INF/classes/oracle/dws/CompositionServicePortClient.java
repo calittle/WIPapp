@@ -23,126 +23,126 @@
 /*  23 */     return variable;
 /*     */   }
 /*     */   
-/*  26 */   public DoCallIDSResponse unlockWIPentry(String config, String uniqueId, String newGroupId, String idsUser, String idsPass, String idsRequestUpdateWip) throws CompositionFault { compositionService = new CompositionService();
-/*  27 */     CompositionServicePortType compositionServicePortType = compositionService.getCompositionServicePort();
+/*     */   public DoCallIDSResponse unlockWIPentry(String config, String uniqueId, String newGroupId, String idsUser, String idsPass, String idsRequestUpdateWip) throws CompositionFault
+/*     */   {
+/*  28 */     compositionService = new CompositionService();
+/*  29 */     CompositionServicePortType compositionServicePortType = compositionService.getCompositionServicePort();
 /*     */     
 /*     */ 
-/*  30 */     DoCallIDSRequest dwsRequest = new DoCallIDSRequest();
-/*  31 */     dwsRequest.setSchemaVersion("1.0");
+/*  32 */     DoCallIDSRequest dwsRequest = new DoCallIDSRequest();
+/*  33 */     dwsRequest.setSchemaVersion("1.0");
 /*     */     
-/*  33 */     DSIMSG dsimsg = new DSIMSG();
-/*  34 */     dwsRequest.setDSIMSG(dsimsg);
-/*  35 */     MSGVARS msgvars = new MSGVARS();
-/*  36 */     dsimsg.setMSGVARS(msgvars);
+/*  35 */     DSIMSG dsimsg = new DSIMSG();
+/*  36 */     dwsRequest.setDSIMSG(dsimsg);
+/*  37 */     MSGVARS msgvars = new MSGVARS();
+/*  38 */     dsimsg.setMSGVARS(msgvars);
 /*     */     
-/*  38 */     List<ROWSET> rsList = msgvars.getROWSET();
-/*  39 */     ROWSET rowset = null;
-/*  40 */     ROW row = null;
-/*  41 */     List<ROW> rowList = null;
-/*  42 */     List<VAR> varList = null;
-/*  43 */     String value = null;
+/*  40 */     List<ROWSET> rsList = msgvars.getROWSET();
+/*  41 */     ROWSET rowset = null;
+/*  42 */     ROW row = null;
+/*  43 */     List<ROW> rowList = null;
+/*  44 */     List<VAR> varList = null;
+/*  45 */     String value = null;
 /*     */     
-/*  45 */     varList = msgvars.getVAR();
-/*  46 */     varList.add(bvar("USERID", idsUser));
-/*  47 */     varList.add(bvar("PASSWORD", idsPass));
+/*  47 */     varList = msgvars.getVAR();
+/*  48 */     varList.add(bvar("USERID", idsUser));
+/*  49 */     varList.add(bvar("PASSWORD", idsPass));
 /*     */     
-/*  49 */     varList.add(bvar("REQTYPE", idsRequestUpdateWip));
-/*  50 */     varList.add(bvar("CONFIG", config));
-/*  51 */     varList.add(bvar("DPRSTANDARDINDEX", "Y"));
-/*  52 */     varList.add(bvar("SETBLANKFIELDS", "YES"));
-/*  53 */     varList.add(bvar("GOCHANGE", "YES"));
+/*  51 */     varList.add(bvar("REQTYPE", idsRequestUpdateWip));
+/*  52 */     varList.add(bvar("CONFIG", config));
+/*  53 */     varList.add(bvar("DPRSTANDARDINDEX", "Y"));
+/*  54 */     varList.add(bvar("SETBLANKFIELDS", "YES"));
+/*  55 */     varList.add(bvar("GOCHANGE", "YES"));
 /*     */     
-/*  55 */     rowset = new ROWSET();
-/*  56 */     rsList.add(rowset);
-/*  57 */     rowset.setNAME("WIPS");
-/*  58 */     rowList = rowset.getROW();
+/*  57 */     rowset = new ROWSET();
+/*  58 */     rsList.add(rowset);
+/*  59 */     rowset.setNAME("WIPS");
+/*  60 */     rowList = rowset.getROW();
 /*     */     
-/*  60 */     row = new ROW();
-/*  61 */     varList = row.getVAR();
-/*  62 */     varList.add(bvar("UNIQUE_ID", uniqueId));
-/*  63 */     rowList.add(row);
+/*  62 */     row = new ROW();
+/*  63 */     varList = row.getVAR();
+/*  64 */     varList.add(bvar("UNIQUE_ID", uniqueId));
+/*  65 */     rowList.add(row);
 /*     */     
-/*  65 */     rowset = new ROWSET();
-/*  66 */     rsList.add(rowset);
-/*  67 */     rowset.setNAME("NEWWIP");
-/*  68 */     rowList = rowset.getROW();
+/*  67 */     rowset = new ROWSET();
+/*  68 */     rsList.add(rowset);
+/*  69 */     rowset.setNAME("NEWWIP");
+/*  70 */     rowList = rowset.getROW();
 /*     */     
-/*  70 */     row = new ROW();
-/*  71 */     varList = row.getVAR();
-/*  72 */     varList.add(bvar("CURRGROUP", newGroupId));
-/*  73 */     varList.add(bvar("CURRUSER", ""));
-/*  74 */     varList.add(bvar("STATUSCODE", "W"));
-/*  75 */     varList.add(bvar("INUSE", ""));
-/*  76 */     varList.add(bvar("TRNDOLOG", "2"));
-/*  77 */     rowList.add(row);
+/*  72 */     row = new ROW();
+/*  73 */     varList = row.getVAR();
+/*  74 */     varList.add(bvar("CURRGROUP", newGroupId));
+/*  75 */     varList.add(bvar("CURRUSER", ""));
+/*  76 */     varList.add(bvar("STATUSCODE", "W"));
+/*  77 */     varList.add(bvar("INUSE", ""));
+/*  78 */     varList.add(bvar("TRNDOLOG", "2"));
+/*  79 */     rowList.add(row);
 /*     */     
-/*  79 */     DoCallIDSResponse response = null;
+/*  81 */     DoCallIDSResponse response = null;
 /*     */     
-/*  81 */     compositionServicePortType.doCallIDS(dwsRequest);
-/*  82 */     response = compositionServicePortType.doCallIDS(dwsRequest);
-/*  83 */     return response;
+/*  83 */     response = compositionServicePortType.doCallIDS(dwsRequest);
+/*  84 */     return response;
 /*     */   }
 /*     */   
 /*     */   public DoCallIDSResponse submitRBC(String config, String uniqueId, String newGroupId, String idsUser, String idsPass, String idsRequestUpdateWip) throws CompositionFault
 /*     */   {
-/*  88 */     compositionService = new CompositionService();
-/*  89 */     CompositionServicePortType compositionServicePortType = compositionService.getCompositionServicePort();
+/*  89 */     compositionService = new CompositionService();
+/*  90 */     CompositionServicePortType compositionServicePortType = compositionService.getCompositionServicePort();
 /*     */     
 /*     */ 
-/*  92 */     DoCallIDSRequest dwsRequest = new DoCallIDSRequest();
-/*  93 */     dwsRequest.setSchemaVersion("1.0");
+/*  93 */     DoCallIDSRequest dwsRequest = new DoCallIDSRequest();
+/*  94 */     dwsRequest.setSchemaVersion("1.0");
 /*     */     
-/*  95 */     DSIMSG dsimsg = new DSIMSG();
-/*  96 */     dwsRequest.setDSIMSG(dsimsg);
-/*  97 */     MSGVARS msgvars = new MSGVARS();
-/*  98 */     dsimsg.setMSGVARS(msgvars);
+/*  96 */     DSIMSG dsimsg = new DSIMSG();
+/*  97 */     dwsRequest.setDSIMSG(dsimsg);
+/*  98 */     MSGVARS msgvars = new MSGVARS();
+/*  99 */     dsimsg.setMSGVARS(msgvars);
 /*     */     
-/* 100 */     List<ROWSET> rsList = msgvars.getROWSET();
-/* 101 */     ROWSET rowset = null;
-/* 102 */     ROW row = null;
-/* 103 */     List<ROW> rowList = null;
-/* 104 */     List<VAR> varList = null;
-/* 105 */     String value = null;
+/* 101 */     List<ROWSET> rsList = msgvars.getROWSET();
+/* 102 */     ROWSET rowset = null;
+/* 103 */     ROW row = null;
+/* 104 */     List<ROW> rowList = null;
+/* 105 */     List<VAR> varList = null;
+/* 106 */     String value = null;
 /*     */     
-/* 107 */     varList = msgvars.getVAR();
-/* 108 */     varList.add(bvar("USERID", idsUser));
-/* 109 */     varList.add(bvar("PASSWORD", idsPass));
+/* 108 */     varList = msgvars.getVAR();
+/* 109 */     varList.add(bvar("USERID", idsUser));
+/* 110 */     varList.add(bvar("PASSWORD", idsPass));
 /*     */     
-/* 111 */     varList.add(bvar("REQTYPE", idsRequestUpdateWip));
-/* 112 */     varList.add(bvar("CONFIG", config));
-/* 113 */     varList.add(bvar("DPRSTANDARDINDEX", "Y"));
-/* 114 */     varList.add(bvar("SETBLANKFIELDS", "YES"));
-/* 115 */     varList.add(bvar("GOCHANGE", "YES"));
+/* 112 */     varList.add(bvar("REQTYPE", idsRequestUpdateWip));
+/* 113 */     varList.add(bvar("CONFIG", config));
+/* 114 */     varList.add(bvar("DPRSTANDARDINDEX", "Y"));
+/* 115 */     varList.add(bvar("SETBLANKFIELDS", "YES"));
+/* 116 */     varList.add(bvar("GOCHANGE", "YES"));
 /*     */     
-/* 117 */     rowset = new ROWSET();
-/* 118 */     rsList.add(rowset);
-/* 119 */     rowset.setNAME("WIPS");
-/* 120 */     rowList = rowset.getROW();
+/* 118 */     rowset = new ROWSET();
+/* 119 */     rsList.add(rowset);
+/* 120 */     rowset.setNAME("WIPS");
+/* 121 */     rowList = rowset.getROW();
 /*     */     
-/* 122 */     row = new ROW();
-/* 123 */     varList = row.getVAR();
-/* 124 */     varList.add(bvar("UNIQUE_ID", uniqueId));
-/* 125 */     rowList.add(row);
+/* 123 */     row = new ROW();
+/* 124 */     varList = row.getVAR();
+/* 125 */     varList.add(bvar("UNIQUE_ID", uniqueId));
+/* 126 */     rowList.add(row);
 /*     */     
-/* 127 */     rowset = new ROWSET();
-/* 128 */     rsList.add(rowset);
-/* 129 */     rowset.setNAME("NEWWIP");
-/* 130 */     rowList = rowset.getROW();
+/* 128 */     rowset = new ROWSET();
+/* 129 */     rsList.add(rowset);
+/* 130 */     rowset.setNAME("NEWWIP");
+/* 131 */     rowList = rowset.getROW();
 /*     */     
-/* 132 */     row = new ROW();
-/* 133 */     varList = row.getVAR();
-/* 134 */     varList.add(bvar("CURRGROUP", newGroupId));
-/* 135 */     varList.add(bvar("CURRUSER", ""));
-/* 136 */     varList.add(bvar("STATUSCODE", "W"));
-/* 137 */     varList.add(bvar("INUSE", ""));
-/* 138 */     varList.add(bvar("TRNDOLOG", "2"));
-/* 139 */     varList.add(bvar("ROUTEDESC", "Processed by SubmitRBC"));
-/* 140 */     rowList.add(row);
+/* 133 */     row = new ROW();
+/* 134 */     varList = row.getVAR();
+/* 135 */     varList.add(bvar("CURRGROUP", newGroupId));
+/* 136 */     varList.add(bvar("CURRUSER", ""));
+/* 137 */     varList.add(bvar("STATUSCODE", "W"));
+/* 138 */     varList.add(bvar("INUSE", ""));
+/* 139 */     varList.add(bvar("TRNDOLOG", "2"));
+/* 140 */     varList.add(bvar("ROUTEDESC", "Processed by SubmitRBC"));
+/* 141 */     rowList.add(row);
 /*     */     
 /*     */ 
-/* 143 */     DoCallIDSResponse response = null;
+/* 144 */     DoCallIDSResponse response = null;
 /*     */     
-/* 145 */     compositionServicePortType.doCallIDS(dwsRequest);
 /* 146 */     response = compositionServicePortType.doCallIDS(dwsRequest);
 /* 147 */     return response;
 /*     */   }
@@ -204,135 +204,131 @@
 /*     */     
 /* 205 */     DoCallIDSResponse response = null;
 /*     */     
-/* 207 */     compositionServicePortType.doCallIDS(dwsRequest);
-/* 208 */     response = compositionServicePortType.doCallIDS(dwsRequest);
-/* 209 */     return response;
+/* 207 */     response = compositionServicePortType.doCallIDS(dwsRequest);
+/* 208 */     return response;
 /*     */   }
 /*     */   
 /*     */   public DoCallIDSResponse getResource(String config, String effectiveDate, String entityId, String resourceName, String resourceType, String idsUser, String idsPass, String idsReqGetResource) throws CompositionFault
 /*     */   {
-/* 214 */     compositionService = new CompositionService();
-/* 215 */     CompositionServicePortType compositionServicePortType = compositionService.getCompositionServicePort();
+/* 213 */     compositionService = new CompositionService();
+/* 214 */     CompositionServicePortType compositionServicePortType = compositionService.getCompositionServicePort();
 /*     */     
 /*     */ 
-/* 218 */     DoCallIDSRequest dwsRequest = new DoCallIDSRequest();
-/* 219 */     dwsRequest.setSchemaVersion("1.0");
+/* 217 */     DoCallIDSRequest dwsRequest = new DoCallIDSRequest();
+/* 218 */     dwsRequest.setSchemaVersion("1.0");
 /*     */     
-/* 221 */     DSIMSG dsimsg = new DSIMSG();
-/* 222 */     dwsRequest.setDSIMSG(dsimsg);
-/* 223 */     MSGVARS msgvars = new MSGVARS();
-/* 224 */     dsimsg.setMSGVARS(msgvars);
+/* 220 */     DSIMSG dsimsg = new DSIMSG();
+/* 221 */     dwsRequest.setDSIMSG(dsimsg);
+/* 222 */     MSGVARS msgvars = new MSGVARS();
+/* 223 */     dsimsg.setMSGVARS(msgvars);
 /*     */     
-/* 226 */     List<ROWSET> rsList = msgvars.getROWSET();
-/* 227 */     ROWSET rowset = null;
-/* 228 */     ROW row = null;
-/* 229 */     List<ROW> rowList = null;
-/* 230 */     List<VAR> varList = null;
-/* 231 */     String value = null;
-/* 232 */     varList = msgvars.getVAR();
-/* 233 */     varList.add(bvar("USERID", idsUser));
-/* 234 */     varList.add(bvar("PASSWORD", idsPass));
-/* 235 */     varList.add(bvar("REQTYPE", idsReqGetResource));
-/* 236 */     varList.add(bvar("CONFIG", config));
-/* 237 */     varList.add(bvar("DPRSTANDARDINDEX", "Y"));
-/* 238 */     varList.add(bvar("EFFECTIVEDATE", effectiveDate));
-/* 239 */     varList.add(bvar("entityId", entityId));
-/* 240 */     varList.add(bvar("RESOURCENAME", resourceName));
-/* 241 */     varList.add(bvar("RESOURCETYPE", resourceType));
+/* 225 */     List<ROWSET> rsList = msgvars.getROWSET();
+/* 226 */     ROWSET rowset = null;
+/* 227 */     ROW row = null;
+/* 228 */     List<ROW> rowList = null;
+/* 229 */     List<VAR> varList = null;
+/* 230 */     String value = null;
+/* 231 */     varList = msgvars.getVAR();
+/* 232 */     varList.add(bvar("USERID", idsUser));
+/* 233 */     varList.add(bvar("PASSWORD", idsPass));
+/* 234 */     varList.add(bvar("REQTYPE", idsReqGetResource));
+/* 235 */     varList.add(bvar("CONFIG", config));
+/* 236 */     varList.add(bvar("DPRSTANDARDINDEX", "Y"));
+/* 237 */     varList.add(bvar("EFFECTIVEDATE", effectiveDate));
+/* 238 */     varList.add(bvar("entityId", entityId));
+/* 239 */     varList.add(bvar("RESOURCENAME", resourceName));
+/* 240 */     varList.add(bvar("RESOURCETYPE", resourceType));
 /*     */     
-/* 243 */     DoCallIDSResponse response = null;
+/* 242 */     DoCallIDSResponse response = null;
 /*     */     
-/* 245 */     compositionServicePortType.doCallIDS(dwsRequest);
-/* 246 */     response = compositionServicePortType.doCallIDS(dwsRequest);
-/* 247 */     return response;
+/* 244 */     response = compositionServicePortType.doCallIDS(dwsRequest);
+/* 245 */     return response;
 /*     */   }
 /*     */   
 /*     */   public DoCallIDSResponse getWIPentry(String config, String uniqueId, String idsUser, String idsPass, String idsPrintType, String urlPrefix, String idsReqGetWip, String idsReqSave, String servletGetResource, String servletSave, String servletRefresh, String httpUser, String httpUserPass) throws CompositionFault {
-/* 251 */     compositionService = new CompositionService();
-/* 252 */     CompositionServicePortType compositionServicePortType = compositionService.getCompositionServicePort();
+/* 249 */     compositionService = new CompositionService();
+/* 250 */     CompositionServicePortType compositionServicePortType = compositionService.getCompositionServicePort();
 /*     */     
 /*     */ 
-/* 255 */     DoCallIDSRequest dwsRequest = new DoCallIDSRequest();
-/* 256 */     dwsRequest.setSchemaVersion("1.0");
+/* 253 */     DoCallIDSRequest dwsRequest = new DoCallIDSRequest();
+/* 254 */     dwsRequest.setSchemaVersion("1.0");
 /*     */     
-/* 258 */     DSIMSG dsimsg = new DSIMSG();
-/* 259 */     dwsRequest.setDSIMSG(dsimsg);
-/* 260 */     MSGVARS msgvars = new MSGVARS();
-/* 261 */     dsimsg.setMSGVARS(msgvars);
+/* 256 */     DSIMSG dsimsg = new DSIMSG();
+/* 257 */     dwsRequest.setDSIMSG(dsimsg);
+/* 258 */     MSGVARS msgvars = new MSGVARS();
+/* 259 */     dsimsg.setMSGVARS(msgvars);
 /*     */     
-/* 263 */     List<ROWSET> rsList = msgvars.getROWSET();
-/* 264 */     ROWSET rowset = null;
-/* 265 */     ROW row = null;
-/* 266 */     List<ROW> rowList = null;
-/* 267 */     List<VAR> varList = null;
-/* 268 */     String value = null;
-/* 269 */     varList = msgvars.getVAR();
-/* 270 */     varList.add(bvar("USERID", idsUser));
-/* 271 */     varList.add(bvar("PASSWORD", idsPass));
-/* 272 */     varList.add(bvar("PRTTYPE", idsPrintType));
+/* 261 */     List<ROWSET> rsList = msgvars.getROWSET();
+/* 262 */     ROWSET rowset = null;
+/* 263 */     ROW row = null;
+/* 264 */     List<ROW> rowList = null;
+/* 265 */     List<VAR> varList = null;
+/* 266 */     String value = null;
+/* 267 */     varList = msgvars.getVAR();
+/* 268 */     varList.add(bvar("USERID", idsUser));
+/* 269 */     varList.add(bvar("PASSWORD", idsPass));
+/* 270 */     varList.add(bvar("PRTTYPE", idsPrintType));
 /*     */     
-/* 274 */     varList.add(bvar("PUTURL", urlPrefix));
-/* 275 */     varList.add(bvar("HTTPUSERID", httpUser));
-/* 276 */     varList.add(bvar("HTTPPASSWORD", httpUserPass));
+/* 272 */     varList.add(bvar("PUTURL", urlPrefix));
+/* 273 */     varList.add(bvar("HTTPUSERID", httpUser));
+/* 274 */     varList.add(bvar("HTTPPASSWORD", httpUserPass));
 /*     */     
-/* 278 */     varList.add(bvar("SAVE_REQTYPE", idsReqSave));
-/* 279 */     varList.add(bvar("REQTYPE", idsReqGetWip));
+/* 276 */     varList.add(bvar("SAVE_REQTYPE", idsReqSave));
+/* 277 */     varList.add(bvar("REQTYPE", idsReqGetWip));
 /*     */     
-/* 281 */     varList.add(bvar("SCRIPT", servletSave));
-/* 282 */     varList.add(bvar("REFRESHSCRIPT", servletRefresh));
-/* 283 */     varList.add(bvar("GETSCRIPT", servletGetResource));
+/* 279 */     varList.add(bvar("SCRIPT", servletSave));
+/* 280 */     varList.add(bvar("REFRESHSCRIPT", servletRefresh));
+/* 281 */     varList.add(bvar("GETSCRIPT", servletGetResource));
 /*     */     
-/* 285 */     varList.add(bvar("CONFIG", config));
-/* 286 */     varList.add(bvar("UNIQUE_ID", uniqueId));
+/* 283 */     varList.add(bvar("CONFIG", config));
+/* 284 */     varList.add(bvar("UNIQUE_ID", uniqueId));
 /*     */     
-/* 288 */     DoCallIDSResponse response = null;
+/* 286 */     DoCallIDSResponse response = null;
 /*     */     
-/* 290 */     compositionServicePortType.doCallIDS(dwsRequest);
-/* 291 */     response = compositionServicePortType.doCallIDS(dwsRequest);
-/* 292 */     return response;
+/* 288 */     response = compositionServicePortType.doCallIDS(dwsRequest);
+/* 289 */     return response;
 /*     */   }
 /*     */   
 /*     */   public DoCallIDSResponse saveWIPEntry(Attachment attachment, String idsReqType, String config, String uniqueId, String currentUser, String idsUser, String idsPass, String idsPrintType) throws CompositionFault {
-/* 296 */     compositionService = new CompositionService();
-/* 297 */     CompositionServicePortType compositionServicePortType = compositionService.getCompositionServicePort();
+/* 293 */     compositionService = new CompositionService();
+/* 294 */     CompositionServicePortType compositionServicePortType = compositionService.getCompositionServicePort();
 /*     */     
-/* 299 */     DoCallIDSRequest dwsRequest = new DoCallIDSRequest();
-/* 300 */     dwsRequest.setSchemaVersion("1.0");
+/* 296 */     DoCallIDSRequest dwsRequest = new DoCallIDSRequest();
+/* 297 */     dwsRequest.setSchemaVersion("1.0");
 /*     */     
-/* 302 */     DSIMSG dsimsg = new DSIMSG();
-/* 303 */     dwsRequest.setDSIMSG(dsimsg);
+/* 299 */     DSIMSG dsimsg = new DSIMSG();
+/* 300 */     dwsRequest.setDSIMSG(dsimsg);
 /*     */     
-/* 305 */     MSGVARS msgvars = new MSGVARS();
-/* 306 */     dsimsg.setMSGVARS(msgvars);
+/* 302 */     MSGVARS msgvars = new MSGVARS();
+/* 303 */     dsimsg.setMSGVARS(msgvars);
 /*     */     
-/* 308 */     List<Attachment> attachments = dsimsg.getAttachment();
-/* 309 */     attachments.add(attachment);
+/* 305 */     List<Attachment> attachments = dsimsg.getAttachment();
+/* 306 */     attachments.add(attachment);
 /*     */     
-/* 311 */     List<ROWSET> rsList = msgvars.getROWSET();
-/* 312 */     ROWSET rowset = null;
-/* 313 */     ROW row = null;
-/* 314 */     List<ROW> rowList = null;
-/* 315 */     List<VAR> varList = null;
-/* 316 */     String value = null;
-/* 317 */     varList = msgvars.getVAR();
+/* 308 */     List<ROWSET> rsList = msgvars.getROWSET();
+/* 309 */     ROWSET rowset = null;
+/* 310 */     ROW row = null;
+/* 311 */     List<ROW> rowList = null;
+/* 312 */     List<VAR> varList = null;
+/* 313 */     String value = null;
+/* 314 */     varList = msgvars.getVAR();
 /*     */     
-/* 319 */     varList.add(bvar("REQTYPE", idsReqType));
-/* 320 */     varList.add(bvar("USERID", idsUser));
-/* 321 */     varList.add(bvar("PASSWORD", idsPass));
-/* 322 */     varList.add(bvar("PRTTYPE", idsPrintType));
-/* 323 */     varList.add(bvar("DPWRECNUM", uniqueId));
-/* 324 */     varList.add(bvar("CONFIG", config));
-/* 325 */     varList.add(bvar("CURRUSER", currentUser));
-/* 326 */     DoCallIDSResponse response = null;
+/* 316 */     varList.add(bvar("REQTYPE", idsReqType));
+/* 317 */     varList.add(bvar("USERID", idsUser));
+/* 318 */     varList.add(bvar("PASSWORD", idsPass));
+/* 319 */     varList.add(bvar("PRTTYPE", idsPrintType));
+/* 320 */     varList.add(bvar("DPWRECNUM", uniqueId));
+/* 321 */     varList.add(bvar("CONFIG", config));
+/* 322 */     varList.add(bvar("CURRUSER", currentUser));
+/* 323 */     DoCallIDSResponse response = null;
 /*     */     
-/* 328 */     compositionServicePortType.doCallIDS(dwsRequest);
-/* 329 */     response = compositionServicePortType.doCallIDS(dwsRequest);
-/* 330 */     return response;
+/* 325 */     response = compositionServicePortType.doCallIDS(dwsRequest);
+/* 326 */     return response;
 /*     */   }
 /*     */ }
 
 
-/* Location:              /Volumes/Data/Users/calittle/Downloads/wipapp/wipapp_2016-12-23-1/WEB-INF/classes/!/oracle/dws/CompositionServicePortClient.class
+/* Location:              /Volumes/Data/Users/calittle/Downloads/wipapp/wipapp_2017-2-13-1/WEB-INF/classes/!/oracle/dws/CompositionServicePortClient.class
  * Java compiler version: 6 (50.0)
  * JD-Core Version:       0.7.1
  */
