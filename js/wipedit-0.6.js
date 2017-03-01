@@ -23,6 +23,41 @@ function saveDocument(){
   else
     return false;
 }
+function pageFormNav(i){
+  var plugin = document.getElementById('plugin');  
+  if(plugin!=null){
+    switch(i){
+        case -2:
+          plugin.FormPrevious();
+          break;
+        case -1:
+          plugin.PagePrevious();
+          break;
+        case 1:
+          plugin.PageNext();
+          break;
+        case 2:
+          plugin.FormNext();
+          break;
+      }
+  }
+}
+function navBar(i){
+  var plugin = document.getElementById('plugin');  
+  if(plugin!=null){
+    switch(i){
+      case -1:
+        plugin.hideNavBar();
+        break;
+      case 1:
+        plugin.showNavBar(); 
+        break;
+      case 0:
+        plugin.toggleNavBar();
+        break;      
+    }
+  }    
+}
 function zoom(i){
     var plugin = document.getElementById('plugin');
     if(plugin!=null){
@@ -48,7 +83,6 @@ function positionContainer(){
   plugin.style.height = (height - 145) + 'px';
 }
 $(window).resize(positionContainer());    
-
 $(document).ready(function () {              
     positionContainer();             
     if (isUserDocPrep) { 
@@ -73,20 +107,38 @@ $(document).ready(function () {
       $("#zoomIn").click(function(){
         zoom(1);
       });
-
+      $("#formprev").click(function(){
+        pageFormNav(-2);
+      });
+      $("#formnext").click(function(){
+        pageFormNav(2);
+      });
+      $("#pageprev").click(function(){
+        pageFormNav(-1);
+      });
+      $("#pagenext").click(function(){
+        pageFormNav(1);
+      });
+      $("#navon").click(function(){
+        navBar(1);
+      });
+      $("#navoff").click(function(){
+        navBar(-1);
+      });
+      $("#navtoggle").click(function(){
+        navBar(0);
+      });
       $("#proof").click(function (){                            
           $("#statusbar").text('Saving...');
           if (saveDocument()){          
             $("#statusbar").text('Generating PDF...');
             window.open('printwip?uniqueid='+uniqueid);
           }window.setTimeout(function () {$("#statusbar").text('Copyright (C) 2016-2017 Oracle Corporation.');}, 5000);
-      }); 
-      
+      });       
       $("#checkRequired").click(function (){
           if(checkRequired()=='true')
             alert('All required fields are completed. Nice job!');
       }); 
-
       $("#submitButton").click(function (){
             if(checkRequired()=='true'){
               $("#statusbar").text('Saving...');                      
@@ -96,8 +148,7 @@ $(document).ready(function () {
                 window.location.replace('submitwip?uniqueid='+uniqueid+'&taskid=' + taskid);
               }
             }  
-      }); 
-      
+      });       
       $("#closeButton").click(function () { 
         var plugin = document.getElementById('plugin');
         if (plugin != null){
@@ -120,6 +171,5 @@ $(document).ready(function () {
         $("#submitButton").prop('disabled', true)
       }
   });
-
 function browserDetect(){return(navigator.userAgent.indexOf("Opera")||navigator.userAgent.indexOf("OPR"))!=-1?"Opera":navigator.userAgent.indexOf("Chrome")!=-1?"Chrome":navigator.userAgent.indexOf("Safari")!=-1?"Safari":navigator.userAgent.indexOf("Firefox")!=-1?"Firefox":navigator.userAgent.indexOf("MSIE")!=-1||1==!!document.documentMode?"IE":"unknown"}function pluginDetect(){var a=browserDetect(),b=false;if("Firefox"==a)for(var c=0;navigator.plugins[c];++c)"DocuMaker plugin"==navigator.plugins[c].name&&(b=true);else if("IE"==a)try{new ActiveXObject("WIPED01.WipEd01Ctrl.1"),b=true}catch(a){b=false;}return(b);}
 if(pluginDetect()==false){$("#statusbar").text('No plugin installed! - Copyright (C) 2016-2017 Oracle Corporation.');alert("The Documaker plugin does not appear to be installed!");}

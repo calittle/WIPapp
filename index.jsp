@@ -64,16 +64,23 @@
                             <li>
                             <a href="#" onclick="alert('Task ID: <%=taskId%>');"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Task <%=taskId%></a>
                             </li>
-                            <li><a id="zoomIn" href="#"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> Zoom In</a></li>
-                            <li><a id="zoomNormal" href="#"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Zoom Normal</a></li>
-                            <li><a id="zoomOut" href="#"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span> Zoom Out</a></li>
+                                <li><a id="zoomIn" href="#"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a></li>
+                                <li><a id="zoomNormal" href="#"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a></li>
+                                <li><a id="zoomOut" href="#"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span></a></li>
+                                <li><a id="formprev" href="#"><span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span></a></li>
+                                <li><a id="pageprev" href="#"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></a></li>                                                                
+                                <li><a id="pagenext" href="#"><span class="glyphicon glyphicon-forward" aria-hidden="true"></span></a></li>
+                                <li><a id="formnext" href="#"><span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span></a></li>                                
+                                <li role="separator" class="divider"></li>
+                                <li><a id="navtoggle" href="#"><span class="glyphicon glyphicon-expand" aria-hidden="true"></span></a></li>                                
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
                             <li><a id="proof" href="#"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Proof</a></li>
                             <li><a id="saveButton" disabled="true" href="#"><span class='glyphicon glyphicon-save-file' aria-hidden='true'></span> Save</a></li>
                             <li><a id="checkRequired" href="#"><span class='glyphicon glyphicon-check' aria-hidden='true'></span> Check</a></li>
                             <li><a id="submitButton" href="#"><span class='glyphicon glyphicon-cloud-upload' aria-hidden='true'></span> Submit</a></li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                          <li><a id="closeButton" href="#"><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> Close</a></li>
+                            <!--li role="separator" class="divider"></li>
+                            <li><a id="closeButton" href="#"><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a></li-->
                         </ul>
                     </div>
                 </div>
@@ -139,7 +146,7 @@
     var uniqueid = '<%=uniqueId%>';
     var taskid = '<%=taskId%>';
     </script>
-    <script src='js/wipedit-0.5.js'></script>
+    <script src='js/wipedit-0.6.js'></script>
     </body>
 </html>
 
