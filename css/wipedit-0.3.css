@@ -5,7 +5,3 @@ iframe{
   position: absolute;
   z-index: -1;                   
 }
-body {
-    background-repeat: no-repeat;
-    background-position: center top;    
-}

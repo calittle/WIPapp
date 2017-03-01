@@ -41,11 +41,11 @@
         <meta name='keywords' content='ODEE,Documaker,WIPedit,WIPapp'>
         <meta name='author' content='Andy Little andy.little@oracle.com'>
         <link href='bootstrap-3.3.7-dist/css/bootstrap.min.css' rel='stylesheet'>        
-        <link href='css/wipedit.css' rel='stylesheet'>
+        <link href='css/wipedit-0.3.css' rel='stylesheet'>
         <script src='js/jquery-3.1.1.js'></script>        
         <script src='bootstrap-3.3.7-dist/js/bootstrap.min.js'></script>
     </head>
-    <body background="loader1.gif">
+    <body>
         <header>
             <nav class="navbar navbar-default">
               <div class="container-fluid">
@@ -102,7 +102,8 @@
                         src="wipedit?uniqueid=<%=request.getParameter("uniqueid")%>"
                         frameborder="0" style="overflow: hidden; height: 100%; width: 100%; position: absolute;z-index:-1;" height="100%" width="100%"></iframe>
                         -->
-                <object type="application/x-dpwfile" width="100%" height="100%" id="plugin" name="plugin" classid="clsid:F894A210-B1E8-44D2-A3DB-5C2E86C7408D" src="wipedit?uniqueid=<%=uniqueId%>">
+                <object standby="Loading..." 
+                  type="application/x-dpwfile" width="100%" height="100%" id="plugin" name="plugin" classid="clsid:F894A210-B1E8-44D2-A3DB-5C2E86C7408D" src="wipedit?uniqueid=<%=uniqueId%>">
                   <param name="src" value="<%=request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + "/wipedit/wipedit?uniqueid=" + uniqueId %>">
                   <param name="classid" value="clsid:F894A210-B1E8-44D2-A3DB-5C2E86C7408D">
                   <param name="dpr_wip_mode" value="ENTRY">
@@ -133,126 +134,12 @@
                 </div>
             </div>
         </nav>
-        
-        <script>        
-        function positionContainer(){
-          var height = "innerHeight" in window 
-                      ? window.innerHeight
-                      : document.documentElement.offsetHeight;                             
-          plugin.style.height = (height - 145) + 'px';
-        }
-        $(window).resize(function(){
-          positionContainer();
-        });
-    
-       $(document).ready(function () {              
-            positionContainer();             
-          <%
-            if (isUserDocPrep) { 
-          %>
-              //alert('Document save enabled!');
-              $("#saveButton").prop('disabled',false);
-          <% } %>                       
-              $("#saveButton").click(function () {                
-                      $("#saveButton").prop('disabled',true);
-                      $("#submitButton").prop('disabled', true)                  
-                      
-                      var rs='not saved';
-                      var plugin = document.getElementById('plugin');
-                      
-                      try{
-                        rs = plugin.cmdGetResponse(260);
-                      }catch (e){
-                        alert('Exception: ' + e.message);
-                      }
-                      //alert('Document save result:'+rs); 
-                      $("#statusbar").text('Document save result:'+rs);                      
-                      
-                      $("#saveButton").prop('disabled',false);              
-                      $("#submitButton").prop('disabled', false)
-                      
-                      window.setTimeout(function () {
-                        $("#statusbar").text('Copyright (C) 2016-2017 Oracle Corporation.');
-                      }, 5000);
-              });
-              $("#zoomNormal").click(function (){
-                  var plugin = document.getElementById('plugin');
-                  plugin.zoomNormal();
-              }); 
-
-              $("#zoomOut").click(function (){
-                  var plugin = document.getElementById('plugin');
-                  plugin.zoomOut();
-              }); 
-
-              $("#zoomIn").click(function (){
-                  var plugin = document.getElementById('plugin');
-                  plugin.zoomIn();
-              });             
-
-              $("#proof").click(function (){                  
-                  var plugin = document.getElementById('plugin');
-                      
-                      try{
-                        rs = plugin.cmdGetResponse(260);
-                      }catch (e){
-                        alert('Exception: ' + e.message);
-                      }
-                      
-                      $("#statusbar").text('Document save result:'+rs); 
-                      window.setTimeout(function () {
-                        $("#statusbar").text('Copyright (C) 2016-2017 Oracle Corporation.');
-                      }, 5000);
-                      
-                  window.open('printwip?uniqueid=<%=uniqueId%>');
-              }); 
-              
-              $("#checkRequired").click(function (){
-                  var plugin = document.getElementById('plugin');
-                  plugin.checkRequiredField();
-              }); 
-
-              $("#submitButton").click(function (){
-                  var plugin = document.getElementById('plugin');
-                  var rs = false;
-                  try{
-                    do{
-                      rs = plugin.checkRequiredField();
-                    }while(rs=false);
-                    rs = plugin.cmdGetResponse(260);
-                    window.location.replace('submitwip?uniqueid=<%=uniqueId%>&taskid=<%=taskId%>');
-                  }catch (e){
-                    alert('Exception: ' + e.message);
-                  }                                        
-              }); 
-              
-              $("#closeButton").click(function () { 
-                var plugin = document.getElementById('plugin');
-                if (plugin != null){
-                  var dirty = '1';
-                  try {
-                    dirty = plugin.isdirty();                    
-                  }catch (err){
-                    dirty = '1';
-                  }
-                  if (/^1$/.test(dirty)){
-                    if(confirm('You may have unsaved data. Do you wish to close?')){
-                      window.close();      
-                    }
-                  }
-                }
-              });
-          if (pluginDetect()==false)
-            {
-            $("#saveButton").prop('disabled',true);
-            $("#submitButton").prop('disabled', true)
-            }
-          });
-</script>
-<script>
-if(pluginDetect()==false)
-  alert("The Documaker plugin does not appear to be installed!");
-function browserDetect(){return(navigator.userAgent.indexOf("Opera")||navigator.userAgent.indexOf("OPR"))!=-1?"Opera":navigator.userAgent.indexOf("Chrome")!=-1?"Chrome":navigator.userAgent.indexOf("Safari")!=-1?"Safari":navigator.userAgent.indexOf("Firefox")!=-1?"Firefox":navigator.userAgent.indexOf("MSIE")!=-1||1==!!document.documentMode?"IE":"unknown"}function pluginDetect(){var a=browserDetect(),b=false;if("Firefox"==a)for(var c=0;navigator.plugins[c];++c)"DocuMaker plugin"==navigator.plugins[c].name&&(b=true);else if("IE"==a)try{new ActiveXObject("WIPED01.WipEd01Ctrl.1"),b=true}catch(a){b=false;}return(b);}</script>
+    <script>
+    var isUserDocPrep = <%=isUserDocPrep%>;
+    var uniqueid = '<%=uniqueId%>';
+    var taskid = '<%=taskId%>';
+    </script>
+    <script src='js/wipedit-0.5.js'></script>
     </body>
 </html>
 
