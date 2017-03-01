@@ -158,14 +158,12 @@
                 if (plugin != null){
                   var dirty = '1';
                   try {
-                    dirty = plugin.isdirty();
-                    alert('Plugin reports dirty =' +dirty);
+                    dirty = plugin.isdirty();                    
                   }catch (err){
                     dirty = '1';
-                    alert('There was an error getting dirty value:' + err);
                   }
                   if (/^1$/.test(dirty)){
-                    if(confirm('You have unsaved data. Do you wish to close?')){
+                    if(confirm('You may have unsaved data. Do you wish to close?')){
                       window.close();      
                     }
                   }
