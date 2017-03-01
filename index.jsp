@@ -152,12 +152,12 @@
           <%
             if (isUserDocPrep) { 
           %>
-              alert('Document save enabled!');
+              //alert('Document save enabled!');
               $("#saveButton").prop('disabled',false);
           <% } %>                       
               $("#saveButton").click(function () {                
                       
-                      alert('Document save clicked');
+                      //alert('Document save clicked');
                       
                       $("#saveButton").prop('disabled',true);
                       $("#submitButton").prop('disabled', true)                  
@@ -170,7 +170,7 @@
                       }catch (e){
                         alert('Exception: ' + e.message);
                       }
-                      alert('Document save result:'+rs); 
+                      //alert('Document save result:'+rs); 
                       $("#statusbar").text('Document save result:'+rs);                      
                       
                       $("#saveButton").prop('disabled',false);              
@@ -181,7 +181,7 @@
                       }, 5000);
               });
               $("#submitButton").click(function (){
-                  alert('submit button clicked\nAbout to submit.');
+                  //alert('submit button clicked\nAbout to submit.');
                   $("#saveButton").prop('disabled',true);
                   $("#submitButton").prop('disabled', true)
                   window.location.replace('submitwip?uniqueid=<%=uniqueId%>&taskid=<%=taskId%>');
