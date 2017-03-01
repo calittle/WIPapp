@@ -69,7 +69,8 @@
                             <li><a id="zoomOut" href="#"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span> Zoom Out</a></li>
                             <li><a id="proof" href="#"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Proof</a></li>
                             <li><a id="saveButton" disabled="true" href="#"><span class='glyphicon glyphicon-save-file' aria-hidden='true'></span> Save</a></li>
-                            <li><a id="submitButton" href="#"><span class='glyphicon glyphicon-check' aria-hidden='true'></span> Submit</a></li>
+                            <li><a id="checkRequired" href="#"><span class='glyphicon glyphicon-check' aria-hidden='true'></span> Check</a></li>
+                            <li><a id="submitButton" href="#"><span class='glyphicon glyphicon-cloud-upload' aria-hidden='true'></span> Submit</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                           <li><a id="closeButton" href="#"><span class='glyphicon glyphicon-remove' aria-hidden='true'></span> Close</a></li>
@@ -187,7 +188,7 @@
               $("#zoomIn").click(function (){
                   var plugin = document.getElementById('plugin');
                   plugin.zoomIn();
-              }); 
+              });             
 
               $("#proof").click(function (){                  
                   var plugin = document.getElementById('plugin');
@@ -204,6 +205,11 @@
                       }, 5000);
                       
                   window.open('printwip?uniqueid=<%=uniqueId%>');
+              }); 
+              
+              $("#checkRequired").click(function (){
+                  var plugin = document.getElementById('plugin');
+                  plugin.checkRequiredField();
               }); 
 
               $("#submitButton").click(function (){
@@ -236,7 +242,7 @@
                   }
                 }
               });
-          if (pluginDetect()==!1)
+          if (pluginDetect()==false)
             {
             $("#saveButton").prop('disabled',true);
             $("#submitButton").prop('disabled', true)
@@ -244,8 +250,9 @@
           });
 </script>
 <script>
-pluginDetect();
-function browserDetect(){return(navigator.userAgent.indexOf("Opera")||navigator.userAgent.indexOf("OPR"))!=-1?"Opera":navigator.userAgent.indexOf("Chrome")!=-1?"Chrome":navigator.userAgent.indexOf("Safari")!=-1?"Safari":navigator.userAgent.indexOf("Firefox")!=-1?"Firefox":navigator.userAgent.indexOf("MSIE")!=-1||1==!!document.documentMode?"IE":"unknown"}function pluginDetect(){var a=browserDetect(),b=!1;if("Firefox"==a)for(var c=0;navigator.plugins[c];++c)"DocuMaker plugin"==navigator.plugins[c].name&&(b=!0);else if("IE"==a)try{new ActiveXObject("WIPED01.WipEd01Ctrl.1"),b=!0}catch(a){b=!1}b||alert("The Documaker plugin does not appear to be installed!")}</script>
+if(pluginDetect()==false)
+  alert("The Documaker plugin does not appear to be installed!");
+function browserDetect(){return(navigator.userAgent.indexOf("Opera")||navigator.userAgent.indexOf("OPR"))!=-1?"Opera":navigator.userAgent.indexOf("Chrome")!=-1?"Chrome":navigator.userAgent.indexOf("Safari")!=-1?"Safari":navigator.userAgent.indexOf("Firefox")!=-1?"Firefox":navigator.userAgent.indexOf("MSIE")!=-1||1==!!document.documentMode?"IE":"unknown"}function pluginDetect(){var a=browserDetect(),b=false;if("Firefox"==a)for(var c=0;navigator.plugins[c];++c)"DocuMaker plugin"==navigator.plugins[c].name&&(b=true);else if("IE"==a)try{new ActiveXObject("WIPED01.WipEd01Ctrl.1"),b=true}catch(a){b=false;}return(b);}</script>
     </body>
 </html>
 
