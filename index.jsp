@@ -154,9 +154,11 @@
           <%
           if (isUserDocVet) { 
           %>
+              alert('Disabled save button because user is DocVet');
               $("#saveButton").prop('disabled',true);
           <% } %>                       
-              $("#saveButton").click(function () {                         
+              $("#saveButton").click(function () {  
+                      alert('Document save clicked');
                       $("#saveButton").prop('disabled',true);
                       $("#submitButton").prop('disabled', true)                  
                       
@@ -168,7 +170,7 @@
                       }catch (e){
                         alert('Exception: ' + e.message);
                       }
-                      
+                      alert('Document save result:'+rs); 
                       $("#statusbar").text('Document save result:'+rs);                      
                       
                       $("#saveButton").prop('disabled',false);              
@@ -179,10 +181,12 @@
                       }, 5000);
               });
               $("#submitButton").click(function (){
+                  alert('submit button clicked\nAbout to submit.');
                   $("#saveButton").prop('disabled',true);
                   $("#submitButton").prop('disabled', true)
                   window.location.replace('submitwip?uniqueid=<%=uniqueId%>&taskid=<%=taskId%>');
-              });              
+              }); 
+              
               $("#closeButton").click(function () { 
                 var plugin = document.getElementById('plugin');
                 if (plugin != null){

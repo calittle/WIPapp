@@ -145,26 +145,28 @@
       <role-name>DocumentReviewer</role-name>
       <role-name>DocumentPreparer</role-name>
     </auth-constraint>
-<!-- add this section for securing the web application using SSL
-  
-      <user-data-constraint>
-      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-    </user-data-constraint>
     
-    Valid values: NONE,INTEGRAL,CONFIDENTIAL
-    NONE = no security
+<!--
+TO SECURE THE APPLICATION WITH SSL:
+Change the value of <transport-guarantee> to [NONE | INTEGRAL | CONFIDENTIAL] where:
+        NONE = no security
     INTEGRAL = prevent changing message, contents readable.
-    CONFIDENTIAL = prevent changing/reading message.
+CONFIDENTIAL = prevent changing/reading message.
 -->
     <user-data-constraint>
       <transport-guarantee>NONE</transport-guarantee>
     </user-data-constraint>
   </security-constraint>
-  <!-- change this as necessary to implement SSL/SSO
-  auth-method can be one of BASIC,DIGEST,CLIENT-CERT
-  for BASIC and DIGEST include <realm-name> with name of security 
-  realm against which users are authenticated.
-  -->
+<!-- 
+TO CONFIGURE LOG-ON SECURITY
+Changethe value of <auth-method> to [BASIC | DIGEST | CLIENT-CERT] where:
+        BASIC = plaintext challenge/response
+       DIGEST = encrypted challenge/response
+  CLIENT-CERT = client browser is prompted for security certificate. The certificate 
+                must be trusted by the server's trust store, or WebLogic must be 
+                configured for perimeter security.
+<realm-name> should be myrealm for default installation
+-->
   <login-config>
     <auth-method>BASIC</auth-method>
     <realm-name>myrealm</realm-name>
