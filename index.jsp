@@ -57,20 +57,18 @@
                         <span class='icon-bar'></span>
                         <span class='icon-bar'></span>
                     </button>
-                     
-                    <!--<a class='navbar-brand' href='#'>WIPedit</a>-->
                     <div class='collapse navbar-collapse' id='navbarCollapse'>
                         <ul class='nav navbar-nav'>
                             <li>
-                                <a id="saveButton" href="#">
+                                <a id="saveButton" disabled="true" href="#">
                                     <i class='fa fa-floppy-o'
                                        aria-hidden='true'></i> Save</a>
                             </li>
                              
                             <li>                                
-                                        <a id="submitButton" href="#">
-                                        <i class='fa fa-share-square-o'
-                                           aria-hidden='true'></i> Submit</a>
+                                <a id="submitButton" href="#">
+                                  <i class='fa fa-share-square-o'
+                                     aria-hidden='true'></i> Submit</a>
                             </li>
                              
                             <li>
@@ -152,13 +150,15 @@
        $(document).ready(function () {              
             positionContainer();                      
           <%
-          if (isUserDocVet) { 
+            if (isUserDocPrep) { 
           %>
-              alert('Disabled save button because user is DocVet');
-              $("#saveButton").prop('disabled',true);
+              alert('Document save enabled!');
+              $("#saveButton").prop('disabled',false);
           <% } %>                       
-              $("#saveButton").click(function () {  
+              $("#saveButton").click(function () {                
+                      
                       alert('Document save clicked');
+                      
                       $("#saveButton").prop('disabled',true);
                       $("#submitButton").prop('disabled', true)                  
                       
