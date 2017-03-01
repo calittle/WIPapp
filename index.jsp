@@ -146,7 +146,7 @@
     var uniqueid = '<%=uniqueId%>';
     var taskid = '<%=taskId%>';
     </script>
-    <script src='js/wipedit-0.10.js'></script>
+    <script src='js/wipedit-0.10-min.js'></script>
     </body>
 </html>
 

@@ -30,11 +30,11 @@
 /*     */ {
 /*  31 */   private String className = getClass().getSimpleName();
 /*  32 */   private Controller ws = null;
-/*     */   
 /*     */   private static final String UPLOAD_DIRECTORY = "upload";
 /*     */   private static final int MEMORY_THRESHOLD = 52428800;
 /*     */   private static final int MAX_FILE_SIZE = 52428800;
 /*     */   private static final int MAX_REQUEST_SIZE = 52428800;
+/*     */   private static final String SERVLET_VERSION = "1.0";
 /*     */   
 /*     */   public void init(ServletConfig config)
 /*     */     throws ServletException
@@ -66,94 +66,108 @@
 /*  66 */     ServletFileUpload upload = new ServletFileUpload(factory);
 /*  67 */     upload.setFileSizeMax(52428800L);
 /*  68 */     upload.setSizeMax(52428800L);
+/*     */     
+/*  70 */     this.ws.logMessage("DEBUG", this.className, "Processing save request Servlet Version 1.0");
 /*     */     try
 /*     */     {
-/*  71 */       List<FileItem> items = upload.parseRequest(request);
+/*  73 */       this.ws.logMessage("DEBUG", this.className, "Parse request from POST...");
+/*  74 */       List<FileItem> items = upload.parseRequest(request);
 /*     */       
 /*     */ 
-/*  74 */       Attachment attach = new Attachment();
+/*  77 */       Attachment attach = new Attachment();
 /*     */       
-/*  76 */       for (FileItem item : items) {
-/*  77 */         if (item.isFormField()) {
-/*  78 */           String fieldName = item.getFieldName();
-/*  79 */           String fieldValue = item.getString();
-/*  80 */           this.ws.logMessage("DEBUG", this.className, fieldName + "=" + fieldValue);
+/*  79 */       for (FileItem item : items) {
+/*  80 */         this.ws.logMessage("DEBUG", this.className, "... Request Item parsed; form/non-form content parsing follows.");
+/*  81 */         if (item.isFormField()) {
+/*  82 */           String fieldName = item.getFieldName();
+/*  83 */           String fieldValue = item.getString();
+/*  84 */           this.ws.logMessage("DEBUG", this.className, fieldName + "=" + fieldValue);
 /*     */           
 /*     */ 
-/*  83 */           if (fieldName.equalsIgnoreCase("DPWRECNUM")) {
-/*  84 */             uniqueId = fieldValue;
+/*  87 */           if (fieldName.equalsIgnoreCase("DPWRECNUM")) {
+/*  88 */             uniqueId = fieldValue;
 /*     */           }
 /*     */         }
-/*     */         else
-/*     */         {
-/*  89 */           File f = new File(repository, item.getName());
-/*  90 */           String fileName = f.getName();
-/*  91 */           item.write(f);
+/*     */         else {
+/*  92 */           File f = new File(repository, item.getName());
+/*  93 */           String fileName = f.getName();
+/*  94 */           item.write(f);
 /*     */           
-/*  93 */           this.ws.logMessage("DEBUG", this.className, String.format("Attachment <Name=%s> <ContentType=%s>", new Object[] { fileName, item.getContentType() }));
+/*  96 */           this.ws.logMessage("DEBUG", this.className, String.format("Attachment <Name=%s> <ContentType=%s>", new Object[] { fileName, item.getContentType() }));
 /*     */           
 /*     */ 
 /*     */ 
 /*     */ 
-/*  98 */           DataSource fds = new FileDataSource(f);
-/*  99 */           DataHandler handler = new DataHandler(fds);
-/* 100 */           Content c = new Content();
-/* 101 */           c.setBinary(handler);
+/* 101 */           DataSource fds = new FileDataSource(f);
+/* 102 */           DataHandler handler = new DataHandler(fds);
+/* 103 */           Content c = new Content();
+/* 104 */           c.setBinary(handler);
 /*     */           
-/* 103 */           attach.setFileName("XMLIMPORT");
-/* 104 */           attach.setName("XMLIMPORT");
-/* 105 */           attach.setContent(c);
+/* 106 */           attach.setFileName("XMLIMPORT");
+/* 107 */           attach.setName("XMLIMPORT");
+/* 108 */           attach.setContent(c);
 /*     */         }
 /*     */       }
 /*     */       
-/* 109 */       CompositionServicePortClient cli = new CompositionServicePortClient();
+/* 112 */       this.ws.logMessage("DEBUG", this.className, "...Completed POST parsing. Calling DWS...");
+/*     */       
+/* 114 */       CompositionServicePortClient cli = new CompositionServicePortClient();
 /*     */       
 /*     */ 
-/* 112 */       DoCallIDSResponse res = cli.saveWIPEntry(attach, this.ws.getIdsRequestSave(), this.ws.getIdsConfig(), uniqueId, currentUser, this.ws.getIdsRequestUID(), this.ws.getIdsRequestPWD(), this.ws.getIdsgetWipPrintType());
+/* 117 */       DoCallIDSResponse res = cli.saveWIPEntry(attach, this.ws.getIdsRequestSave(), this.ws.getIdsConfig(), uniqueId, currentUser, this.ws.getIdsRequestUID(), this.ws.getIdsRequestPWD(), this.ws.getIdsgetWipPrintType());
 /*     */       
 /*     */ 
 /*     */ 
 /*     */ 
 /*     */ 
-/* 118 */       Results results = res.getResults();
+/* 123 */       this.ws.logMessage("DEBUG", this.className, "...DWS call complete. Parsing results.");
 /*     */       
-/* 120 */       if (results.getResult() != 0) {
-/* 121 */         response.setContentType("text/html");
-/* 122 */         PrintWriter out = response.getWriter();
-/* 123 */         out.println("There was a problem processing the request. <h1>Diagnostics:</h1>");
-/* 124 */         Errors errors = results.getErrors();
-/* 125 */         out.println("<table><tr><td>Category</td><td>Code</td><td>Severity</td><td>Description</td></tr>");
-/* 126 */         for (Error e : errors.getError()) {
-/* 127 */           out.println("<tr><td>" + e.getCategory() + "</td><td>" + e.getCode() + "</td><td>" + e.getSeverity() + "</td><td>" + e.getDescription() + "</td></tr>");
+/* 125 */       Results results = res.getResults();
+/*     */       
+/* 127 */       if (results.getResult() != 0) {
+/* 128 */         this.ws.logMessage("DEBUG", this.className, "...DWS call complete. Parsing results.");
+/*     */         
+/* 130 */         response.setContentType("text/html");
+/* 131 */         PrintWriter out = response.getWriter();
+/* 132 */         out.println("There was a problem processing the request. <h1>Diagnostics:</h1>");
+/* 133 */         Errors errors = results.getErrors();
+/* 134 */         out.println("<table><tr><td>Category</td><td>Code</td><td>Severity</td><td>Description</td></tr>");
+/* 135 */         this.ws.logMessage("ERROR", this.className, "DWS Save Error:");
+/* 136 */         for (Error e : errors.getError())
+/*     */         {
+/* 138 */           this.ws.logMessage("ERROR", this.className, String.format("<Category=%s> <Severity=%s> <Desc=%s>", new Object[] { e.getCategory(), e.getSeverity(), e.getDescription() }));
+/*     */           
+/* 140 */           out.println("<tr><td>" + e.getCategory() + "</td><td>" + e.getCode() + "</td><td>" + e.getSeverity() + "</td><td>" + e.getDescription() + "</td></tr>");
 /*     */           
 /*     */ 
 /*     */ 
 /*     */ 
-/* 132 */           for (Diagnosis d : e.getDiagnosis()) {
-/* 133 */             out.println("<tr><td colspan='2'>" + d.getCause() + "</td><td colspan='2'>" + d.getRemedy() + "</td></tr>");
+/* 145 */           for (Diagnosis d : e.getDiagnosis()) {
+/* 146 */             out.println("<tr><td colspan='2'>" + d.getCause() + "</td><td colspan='2'>" + d.getRemedy() + "</td></tr>");
 /*     */           }
 /*     */         }
 /*     */         
 /*     */ 
-/* 138 */         out.println("</table>");
-/* 139 */         out.close();
-/* 140 */         return;
+/* 151 */         out.println("</table>");
+/* 152 */         out.close();
+/* 153 */         return;
 /*     */       }
-/* 142 */       PrintWriter out = response.getWriter();
-/* 143 */       out.println("Document saved.");
-/* 144 */       out.flush();
-/* 145 */       out.close();
-/* 146 */       return;
+/* 155 */       this.ws.logMessage("DEBUG", this.className, "DWS call completed successfully.");
+/* 156 */       PrintWriter out = response.getWriter();
+/* 157 */       out.println("Document saved.");
+/* 158 */       out.flush();
+/* 159 */       out.close();
+/* 160 */       return;
 /*     */     }
 /*     */     catch (Throwable t) {
-/* 149 */       this.ws.logMessage("ERROR", this.className, t.getMessage());
-/* 150 */       t.printStackTrace();
+/* 163 */       this.ws.logMessage("ERROR", this.className, t.getMessage());
+/* 164 */       t.printStackTrace();
 /*     */     }
 /*     */   }
 /*     */ }
 
 
-/* Location:              /Volumes/Data/Users/calittle/Downloads/wipapp/wipapp_2016-12-23-1/WEB-INF/classes/!/wipedit/savewip.class
+/* Location:              /Volumes/Data/Users/calittle/Downloads/wipapp/wipapp-2017-2-27-3/WEB-INF/classes/!/wipedit/savewip.class
  * Java compiler version: 6 (50.0)
  * JD-Core Version:       0.7.1
  */
