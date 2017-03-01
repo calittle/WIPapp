@@ -1,123 +1,118 @@
-/*     */ package oracle.dws.types;
-/*     */ 
-/*     */ import javax.xml.bind.annotation.XmlAccessType;
-/*     */ import javax.xml.bind.annotation.XmlAccessorType;
-/*     */ import javax.xml.bind.annotation.XmlElement;
-/*     */ import javax.xml.bind.annotation.XmlType;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ @XmlAccessorType(XmlAccessType.FIELD)
-/*     */ @XmlType(name="ResponseAttachment", namespace="oracle/documaker/schema/common", propOrder={"name", "returnType", "uri"})
-/*     */ public class ResponseAttachment
-/*     */ {
-/*     */   @XmlElement(name="Name", required=true)
-/*     */   protected String name;
-/*     */   @XmlElement(name="ReturnType", required=true)
-/*     */   protected AttachmentReturnType returnType;
-/*     */   @XmlElement(name="URI", defaultValue="file:///temp/outputfile")
-/*     */   protected String uri;
-/*     */   
-/*     */   public String getName()
-/*     */   {
-/*  55 */     return this.name;
-/*     */   }
-/*     */   
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   public void setName(String value)
-/*     */   {
-/*  67 */     this.name = value;
-/*     */   }
-/*     */   
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   public AttachmentReturnType getReturnType()
-/*     */   {
-/*  79 */     return this.returnType;
-/*     */   }
-/*     */   
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   public void setReturnType(AttachmentReturnType value)
-/*     */   {
-/*  91 */     this.returnType = value;
-/*     */   }
-/*     */   
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   public String getURI()
-/*     */   {
-/* 103 */     return this.uri;
-/*     */   }
-/*     */   
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */   public void setURI(String value)
-/*     */   {
-/* 115 */     this.uri = value;
-/*     */   }
-/*     */ }
+
+package oracle.dws.types;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
-/* Location:              /Volumes/Data/Users/calittle/Downloads/wipapp/wipapp_2016-12-23-1/WEB-INF/classes/!/oracle/dws/types/ResponseAttachment.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       0.7.1
+/**
+ * <p>Java class for ResponseAttachment complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="ResponseAttachment">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="Name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="ReturnType" type="{oracle/documaker/schema/common}AttachmentReturnType"/>
+ *         &lt;element name="URI" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "ResponseAttachment", namespace = "oracle/documaker/schema/common", propOrder = {
+    "name",
+    "returnType",
+    "uri"
+})
+public class ResponseAttachment {
+
+    @XmlElement(name = "Name", required = true)
+    protected String name;
+    @XmlElement(name = "ReturnType", required = true)
+    protected AttachmentReturnType returnType;
+    @XmlElement(name = "URI", defaultValue = "file:///temp/outputfile")
+    protected String uri;
+
+    /**
+     * Gets the value of the name property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the value of the name property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setName(String value) {
+        this.name = value;
+    }
+
+    /**
+     * Gets the value of the returnType property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link AttachmentReturnType }
+     *     
+     */
+    public AttachmentReturnType getReturnType() {
+        return returnType;
+    }
+
+    /**
+     * Sets the value of the returnType property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link AttachmentReturnType }
+     *     
+     */
+    public void setReturnType(AttachmentReturnType value) {
+        this.returnType = value;
+    }
+
+    /**
+     * Gets the value of the uri property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getURI() {
+        return uri;
+    }
+
+    /**
+     * Sets the value of the uri property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setURI(String value) {
+        this.uri = value;
+    }
+
+}

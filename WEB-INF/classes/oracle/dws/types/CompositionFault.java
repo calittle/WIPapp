@@ -1,95 +1,90 @@
-/*    */ package oracle.dws.types;
-/*    */ 
-/*    */ import javax.xml.bind.annotation.XmlAccessType;
-/*    */ import javax.xml.bind.annotation.XmlAccessorType;
-/*    */ import javax.xml.bind.annotation.XmlElement;
-/*    */ import javax.xml.bind.annotation.XmlType;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ @XmlAccessorType(XmlAccessType.FIELD)
-/*    */ @XmlType(name="CompositionFault", propOrder={"faultInfo", "message"})
-/*    */ public class CompositionFault
-/*    */ {
-/*    */   @XmlElement(required=true)
-/*    */   protected String faultInfo;
-/*    */   @XmlElement(required=true)
-/*    */   protected String message;
-/*    */   
-/*    */   public String getFaultInfo()
-/*    */   {
-/* 51 */     return this.faultInfo;
-/*    */   }
-/*    */   
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   public void setFaultInfo(String value)
-/*    */   {
-/* 63 */     this.faultInfo = value;
-/*    */   }
-/*    */   
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   public String getMessage()
-/*    */   {
-/* 75 */     return this.message;
-/*    */   }
-/*    */   
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   public void setMessage(String value)
-/*    */   {
-/* 87 */     this.message = value;
-/*    */   }
-/*    */ }
+
+package oracle.dws.types;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
-/* Location:              /Volumes/Data/Users/calittle/Downloads/wipapp/wipapp_2016-12-23-1/WEB-INF/classes/!/oracle/dws/types/CompositionFault.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       0.7.1
+/**
+ * <p>Java class for CompositionFault complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="CompositionFault">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="faultInfo" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "CompositionFault", propOrder = {
+    "faultInfo",
+    "message"
+})
+public class CompositionFault {
+
+    @XmlElement(required = true)
+    protected String faultInfo;
+    @XmlElement(required = true)
+    protected String message;
+
+    /**
+     * Gets the value of the faultInfo property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFaultInfo() {
+        return faultInfo;
+    }
+
+    /**
+     * Sets the value of the faultInfo property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFaultInfo(String value) {
+        this.faultInfo = value;
+    }
+
+    /**
+     * Gets the value of the message property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getMessage() {
+        return message;
+    }
+
+    /**
+     * Sets the value of the message property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setMessage(String value) {
+        this.message = value;
+    }
+
+}

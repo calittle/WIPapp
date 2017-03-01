@@ -1,95 +1,90 @@
-/*    */ package oracle.dws.types;
-/*    */ 
-/*    */ import javax.xml.bind.annotation.XmlAccessType;
-/*    */ import javax.xml.bind.annotation.XmlAccessorType;
-/*    */ import javax.xml.bind.annotation.XmlElement;
-/*    */ import javax.xml.bind.annotation.XmlType;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ @XmlAccessorType(XmlAccessType.FIELD)
-/*    */ @XmlType(name="Property", namespace="oracle/documaker/schema/common", propOrder={"name", "value"})
-/*    */ public class Property
-/*    */ {
-/*    */   @XmlElement(name="Name", required=true)
-/*    */   protected String name;
-/*    */   @XmlElement(name="Value", required=true)
-/*    */   protected String value;
-/*    */   
-/*    */   public String getName()
-/*    */   {
-/* 51 */     return this.name;
-/*    */   }
-/*    */   
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   public void setName(String value)
-/*    */   {
-/* 63 */     this.name = value;
-/*    */   }
-/*    */   
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   public String getValue()
-/*    */   {
-/* 75 */     return this.value;
-/*    */   }
-/*    */   
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */   public void setValue(String value)
-/*    */   {
-/* 87 */     this.value = value;
-/*    */   }
-/*    */ }
+
+package oracle.dws.types;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 
-/* Location:              /Volumes/Data/Users/calittle/Downloads/wipapp/wipapp_2016-12-23-1/WEB-INF/classes/!/oracle/dws/types/Property.class
- * Java compiler version: 6 (50.0)
- * JD-Core Version:       0.7.1
+/**
+ * <p>Java class for Property complex type.
+ * 
+ * <p>The following schema fragment specifies the expected content contained within this class.
+ * 
+ * <pre>
+ * &lt;complexType name="Property">
+ *   &lt;complexContent>
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element name="Name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="Value" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *       &lt;/sequence>
+ *     &lt;/restriction>
+ *   &lt;/complexContent>
+ * &lt;/complexType>
+ * </pre>
+ * 
+ * 
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "Property", namespace = "oracle/documaker/schema/common", propOrder = {
+    "name",
+    "value"
+})
+public class Property {
+
+    @XmlElement(name = "Name", required = true)
+    protected String name;
+    @XmlElement(name = "Value", required = true)
+    protected String value;
+
+    /**
+     * Gets the value of the name property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the value of the name property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setName(String value) {
+        this.name = value;
+    }
+
+    /**
+     * Gets the value of the value property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getValue() {
+        return value;
+    }
+
+    /**
+     * Sets the value of the value property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+}
