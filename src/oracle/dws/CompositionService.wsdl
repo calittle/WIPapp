@@ -112,12 +112,12 @@
     <wsdl:service name="CompositionService">
     <!-- MUST USE DWSV0! -->
         <wsdl:port name="CompositionServicePort" binding="tns:CompositionServiceBinding">
-            <soap:address location="@{dwsEP}@/CompositionService"/>
+            <soap:address location="http://192.168.1.72:7001/DWSV0AL1/CompositionService"/>
         </wsdl:port>
     </wsdl:service>
     <wsdl:service name="CompositionServiceSoap12">
         <wsdl:port name="CompositionServiceSoap12Port" binding="tns:CompositionServiceSoap12Binding">
-            <soap12:address location="@{dwsEP}@/CompositionServiceSoap12"/>
+            <soap12:address location="http://192.168.1.72:7001/DWSV0AL1/CompositionServiceSoap12"/>
         </wsdl:port>
     </wsdl:service>
 </wsdl:definitions>

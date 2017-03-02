@@ -2,12 +2,12 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
-  <display-name>WIPAPP</display-name>
+  <display-name>WIPWEB</display-name>
   <description>Customized WIPedit plugin implementation that allows for simple save/submit/close functionality with two user profiles (preparer and reviewer). Modify your deployment descriptors to map principals to roles.</description>
   <distributable/>
   <context-param>
     <param-name>wipEditVersion</param-name>
-    <param-value>0.3</param-value>
+    <param-value>0.2</param-value>
   </context-param>
   <context-param>
     <param-name>saveServlet</param-name>
@@ -31,7 +31,8 @@
   </context-param>
   <context-param>
     <param-name>hostUrlPrefix</param-name>
-    <param-value>@{hostUrlPrefix}@</param-value>
+    <!--<param-value>http://192.168.1.72</param-value>-->
+    <param-value>http://192.168.1.72:7001</param-value>
   </context-param>
   <context-param>
     <param-name>idsRequestProof</param-name>
@@ -63,12 +64,12 @@
   </context-param>
   <context-param>
     <param-name>pegaEndpoint</param-name>
-    <param-value>@{pegaEndpoint}@</param-value>
+    <param-value>http://pega-url/service?wsdl</param-value>
   </context-param>
   <context-param>
     <description>Valid Values: DEBUG, ERROR</description>
     <param-name>logLevel</param-name>
-    <param-value>@{logLevel}@</param-value>
+    <param-value>DEBUG</param-value>
   </context-param>
   <context-param>
     <param-name>refreshServlet</param-name>
@@ -76,19 +77,19 @@
   </context-param>
   <context-param>
     <param-name>docPrepGroupId</param-name>
-    <param-value>@{prepGroupId}@</param-value>
+    <param-value>1021</param-value>
   </context-param>
   <context-param>
     <param-name>docVetGroupId</param-name>
-    <param-value>@{vetGroupId}@</param-value>
+    <param-value>1022</param-value>
   </context-param>
   <context-param>
     <param-name>docPrepGroupName</param-name>
-    <param-value>@{prepGroupName}@</param-value>
+    <param-value>DOC_PREP</param-value>
   </context-param>
   <context-param>
     <param-name>docVetGroupName</param-name>
-    <param-value>@{vetGroupName}@</param-value>
+    <param-value>DOC_VET</param-value>
   </context-param>
   <context-param>
     <description>User within the security realm that can be used for secure access by Plugin.</description>
@@ -170,7 +171,7 @@ Change the value of <transport-guarantee> to [NONE | INTEGRAL | CONFIDENTIAL] wh
 CONFIDENTIAL = prevent changing/reading message.
 -->
     <user-data-constraint>
-      <transport-guarantee>@{sslTransport}@</transport-guarantee>
+      <transport-guarantee>NONE</transport-guarantee>
     </user-data-constraint>
   </security-constraint>
 <!-- 
@@ -184,8 +185,8 @@ Changethe value of <auth-method> to [BASIC | DIGEST | CLIENT-CERT] where:
 <realm-name> should be myrealm for default installation
 -->
   <login-config>
-    <auth-method>@{authMethod}@</auth-method>
-    <realm-name>@{realmName}@</realm-name>
+    <auth-method>BASIC</auth-method>
+    <realm-name>myrealm</realm-name>
   </login-config>
   <security-role>
     <description>Document Preparation Users</description>

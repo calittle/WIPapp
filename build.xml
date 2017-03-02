@@ -3,28 +3,38 @@
 	<description>
         WIPapp: Application Wrapper for WIP Edit Plugin
     </description>
-	<property file="wipapp.properties"/>
-
+	<!-- set global properties for this build -->
+	<property location="/Volumes/Data/Users/calittle/apache-ant-1.9.9" name="ANT_HOME"/>
+	<property location="src" name="src"/>
+	<property location="build" name="build"/>
+	<property location="dist" name="dist"/>
+	<property location="/Volumes/Data/Users/calittle/Oracle11g/Middleware/modules" name="jspjar"/>
+	<property location="/Volumes/Data/Users/calittle/Oracle11g/Middleware/wlserver_10.3/server/lib" name="wls"/>
+	<property location="thirdparty" name="third"/>
+	<property location="webapp" name="web"/>
+	<property location="deploy" name="deploy"/>
+	<property name="wls.username" value="weblogic"/>
+	<property name="wls.password" value="Oracle12"/>
+	<property name="wls.hostname" value="192.168.1.72"/>
+	<property name="wls.port" value="7001"/>
+	<property name="admin.server.name" value="AdminServer"/>
+	<property name="deploy.target" value="AdminServer"/>
+	<property name="deploy.name" value="WIPapp"/>
 	<taskdef classname="weblogic.ant.taskdefs.management.WLDeploy" name="wldeploy">
 		<classpath>
 			<pathelement location="${wls}/weblogic.jar"/>
 		</classpath>
 	</taskdef>
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
-	
 	<target name="init">
 		<!-- Create the time stamp -->
 		<tstamp/>
 		<!-- Create the build directory structure used by compile -->
 		<mkdir dir="${build}"/>
-		<echo>WIPapp Ant Project Started.</echo>
 	</target>
-	
-	
-<!-- COMPILE -->	
 	<target depends="init" description="compile the source " name="compile">
 		<!-- Compile the java code from ${src} into ${build} -->
-		<javac destdir="${build}" includeantruntime="false" source="${javaVersion}" srcdir="${src}" target="${javaVersion}">
+		<javac destdir="${build}" source="1.6" srcdir="${src}" target="1.6">
 			<classpath>
 				<pathelement path="${classpath}"/>
 				<fileset dir="${third}">
@@ -34,7 +44,7 @@
 				<dirset dir="${build}">
 					<include name="*/**"/>
 				</dirset>
-				<filelist dir="${jspjar}" files="javax.servlet_1.0.0.0_2-5.jar,javax.jsp_1.1.0.0_2-1.jar,glassfish.el_2.2.0.jar" id="JSPRuntime"/>
+				<filelist dir="${jspjar}" files="javax.servlet_1.0.0.0_2-5.jar,javax.jsp_1.1.0.0_2-1.jar,glassfish.el_2.2.0.jar,javax.servlet_1.0.0.0_2-5.jar,javax.jsp_1.1.0.0_2-1.jar" id="JSPRuntime"/>
 				<filelist dir="${wls}" files="weblogic.jar,oracle.jrf_11.1.1/jrf.jar" id="WS"/>
 			</classpath>
 		</javac>
@@ -42,15 +52,7 @@
 		<copy todir="${build}/oracle/dws">
 			<filelist dir="${src}/oracle/dws" files="CompositionService_xsd_1.xsd,CompositionService_xsd_2.xsd,CompositionService.wsdl,CompositionService.xml,CompositionServiceProxy.proxy" id="webservicestuff"/>
 		</copy>
-
-		<echo>Replacing text strings.</echo>
-		<replace
-			 file="${build}/oracle/dws/CompositionService.wsdl"
-			 token="@{dwsEP}@" 
-			 value="${dwsProto}://${dwsHostPort}/${dwsContext}V0${dwsASLINE}"/>	
 	</target>
-	
-<!-- DEPLOY -->	
 	<target depends="dist" name="deploy">
 		<trycatch>
 			<try>
@@ -67,7 +69,6 @@
 			</finally>
 		</trycatch>
 	</target>
-
 	<target name="redeploy">
 		<wldeploy action="redeploy" adminurl="t3://${wls.hostname}:${wls.port}" name="${deploy.name}" password="${wls.password}" targets="${deploy.target}" user="${wls.username}" verbose="true"/>
 	</target>
@@ -77,80 +78,28 @@
 	<target depends="build" description="build WAR file for remote load" name="dist">
 		<jar basedir="${dist}" jarfile="${deploy}/wipapp-${DSTAMP}.war"/>
 	</target>
-	
-	
-<!-- BUILD -->	
 	<target depends="compile" description="generate the distribution" name="build">
 		<!-- Create the distribution directory -->
 		<mkdir dir="${dist}/WEB-INF/lib"/>
-		<echo>Copying WEB files</echo>
+		<echo>Copying WEB files </echo>
 		<copy todir="${dist}">
 			<fileset dir="${web}">
 		</fileset>
 		</copy>
 		
-		<echo>Replacing text strings</echo>
-			<replace
-			 file="${dist}/WEB-INF/weblogic.xml"
-			 token="@{vetGroupName}@"
-			 value="${vetGroupName}"/>	 
-			<replace
-			 file="${dist}/WEB-INF/weblogic.xml"
-			 token="@{prepGroupName}@"
-			 value="${prepGroupName}"/>	
-			<replace
-			 file="${dist}/WEB-INF/web.xml"
-			 token="@{hostUrlPrefix}@" 
-			 value="${hostUrlPrefix}"/>
-			<replace
-			 file="${dist}/WEB-INF/web.xml"
-			 token="@{logLevel}@" 
-			 value="${logLevel}"/>
-			<replace
-			 file="${dist}/WEB-INF/web.xml"
-			 token="@{pegaEndpoint}@"
-			 value="${pegaEndpoint}"/>	 
-			<replace
-			 file="${dist}/WEB-INF/web.xml"
-			 token="@{vetGroupName}@"
-			 value="${vetGroupName}"/>	 
-			<replace
-			 file="${dist}/WEB-INF/web.xml"
-			 token="@{prepGroupName}@"
-			 value="${prepGroupName}"/>	 
-			 <replace
-			 file="${dist}/WEB-INF/web.xml"
-			 token="@{prepGroupId}@"
-			 value="${prepGroupId}"/>	 
-			 <replace
-			 file="${dist}/WEB-INF/web.xml"
-			 token="@{vetGroupId}@"
-			 value="${vetGroupId}"/>	 
-			 <replace
-			 file="${dist}/WEB-INF/web.xml"
-			 token="@{sslTransport}@"
-			 value="${sslTransport}"/>
-			 <replace
-			 file="${dist}/WEB-INF/web.xml"
-			 token="@{realmName}@"
-			 value="${realmName}"/>
-			 <replace
-			 file="${dist}/WEB-INF/web.xml"
-			 token="@{authMethod}@"
-			 value="${authMethod}"/>		 
-		
-		
 		<!-- minify JS -->
 		<echo message="Compressing Javascript..." />
-    	<java jar="${ANT_HOME}/lib/${yuicompressor}.jar" fork="true">
-        <!--<arg value="-v" /-->
+    	<java jar="${ANT_HOME}/lib/yuicompressor-2.4.8.jar" fork="true">
+<!--        <arg value="-v" />-->
         <arg value="-o" />
         <arg value="'.js$:-min.js'"/>        
         <arg value="${dist}/js/wipedit.js" /> <!-- input path for JS files -->
         <classpath>
-            <pathelement location="${ANT_HOME}/lib/${yuicompressor}"/>
+            <pathelement location="${ANT_HOME}/lib/yuicompressor-2.4.8"/>
         </classpath>
     </java>
+
+		
 		
 		<!--jar jarfile="${dist}/WEB-INF/lib/wipapp-servlet-${DSTAMP}.jar" basedir="${build}"/-->
 		<echo>Copying SOURCE files</echo>
@@ -167,9 +116,6 @@
 			<fileset dir="${third}"/>
 		</copy>
 	</target>
-	
-<!-- CLEAN -->	
-	
 	<target description="clean up" name="clean">
 		<!-- Delete the ${build} and ${dist} directory trees -->
 		<delete dir="${build}"/>
