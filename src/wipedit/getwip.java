@@ -145,7 +145,9 @@ public class getwip extends HttpServlet {
                  ws.getIdsRequestSave(), ws.getGetResourceServlet(), ws.getSaveServlet(),
                  ws.getRefreshServlet(), ws.getHttpUser(), ws.getHttpUserPass());
             
+            ws.logMessage("DEBUG",className,"Return from getting WIP Data; parse results.       UNIQUE_ID <" + uniqueId + ">");
             results = res.getResults();
+            ws.logMessage("DEBUG",className,"Results = "+ results.getResult() + "       UNIQUE_ID <" + uniqueId + ">");
 
             if (results.getResult() != 0) {
                 ws.logMessage("ERROR",className,
@@ -180,6 +182,7 @@ public class getwip extends HttpServlet {
                 return;
             }
 
+			ws.logMessage("DEBUG",className,"Parsing response for DPW.       UNIQUE_ID <" + uniqueId + ">");
             OutputStream os = response.getOutputStream();
 
             List<oracle.dws.types.Attachment> attachList =
@@ -193,6 +196,8 @@ public class getwip extends HttpServlet {
             javax.activation.DataHandler d = c.getBinary();
             InputStream is = d.getInputStream();
 
+			ws.logMessage("DEBUG",className,"Writing headers.       UNIQUE_ID <" + uniqueId + ">");
+
             response.addHeader("content-disposition",
                                "inline; filename=" + att.getFileName());
             response.setContentType("application/x-dpwfile");
@@ -202,6 +207,7 @@ public class getwip extends HttpServlet {
             for (chunk = is.read(buf); chunk != -1; chunk = is.read(buf)) {
                 os.write(buf, 0, chunk);
             }
+            ws.logMessage("DEBUG",className,"Content-Length = " + Integer.toString(chunk) + ".       UNIQUE_ID <" + uniqueId + ">");
             response.setHeader("Content-Length", Integer.toString(chunk));
 
             os.flush();
@@ -212,10 +218,5 @@ public class getwip extends HttpServlet {
             ws.logMessage("ERROR",className, t.getMessage());
             t.printStackTrace();
         }
-
-
     }
-
-
-
 }
