@@ -153,6 +153,9 @@ $(document).ready(function () {
       $("#navtoggle").click(function(){
         navBar(0);
       });
+      $("#helpButton").click(function (){                            
+            window.open('doc/index.html');
+      }); 
       $("#proof").click(function (){                            
           if (saveDocument()){          
             updateBar('Generating PDF...');

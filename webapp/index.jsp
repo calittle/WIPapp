@@ -79,8 +79,9 @@
                             <li><a id="saveButton" disabled="true" href="#"><span class='glyphicon glyphicon-save-file' aria-hidden='true'></span> Save</a></li>
                             <li><a id="checkRequired" href="#"><span class='glyphicon glyphicon-check' aria-hidden='true'></span> Check</a></li>
                             <li><a id="submitButton" href="#"><span class='glyphicon glyphicon-cloud-upload' aria-hidden='true'></span> Submit</a></li>
-                            <!--li role="separator" class="divider"></li>
-                            <li><a id="closeButton" href="#"><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a></li-->
+                            <li role="separator" class="divider"></li>
+                            <li><a id="helpButton" href="#"><span class="glyphicon glyphicon-info-sign"></span> Help</a></li>
+                            <!--li><a id="closeButton" href="#"><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a></li-->
                         </ul>
                     </div>
                 </div>
@@ -146,7 +147,7 @@
     var uniqueid = '<%=uniqueId%>';
     var taskid = '<%=taskId%>';
     </script>
-    <script src='js/wipedit-0.10-min.js'></script>
+    <script src='js/wipedit-min.js'></script>
     </body>
 </html>
 
